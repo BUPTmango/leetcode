@@ -26,6 +26,7 @@ public class MergeTwoLists {
         ListNode pointer2 = l2;
         ListNode current = new ListNode(0);
         ListNode dummy = current;
+        // 首先两个链表比较大小 小的添加
         while (pointer1 != null && pointer2 != null) {
             if (pointer1.val < pointer2.val) {
                 current.next = pointer1;
@@ -36,6 +37,7 @@ public class MergeTwoLists {
             }
             current = current.next;
         }
+        // 当有一个链表遍历结束后，将另一个链表没有遍历的部分直接添加到后面就ok
         if (pointer1 == null && pointer2 != null) {
             current.next = pointer2;
         }
