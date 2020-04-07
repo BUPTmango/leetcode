@@ -4,6 +4,7 @@ import data_structure.linked_list.ListNode;
 import data_structure.linked_list.MyLinkedList;
 
 /**
+ * 83
  * 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
  *
  * 示例 1:
@@ -32,6 +33,20 @@ public class DeleteDuplicates {
             //指针指向下一位
             p = p.next;
         }
+        return head;
+    }
+
+    public ListNode deleteDuplicates_better(ListNode head) {
+        ListNode current = head;
+        while (current != null && current.next != null){
+            if (current.next.val == current.val){
+                current.next = current.next.next;
+            }
+            else{
+                current = current.next;
+            }
+        }
+        //链表的head地址就是链表的地址，返回head即可
         return head;
     }
 
