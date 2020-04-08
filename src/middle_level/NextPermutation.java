@@ -1,13 +1,58 @@
 package middle_level;
 
+import static com.sun.tools.javac.jvm.ByteCodes.swap;
+
 /**
- * å®ç°è·å–ä¸‹ä¸€ä¸ªæ’åˆ—çš„å‡½æ•°ï¼Œç®—æ³•éœ€è¦å°†ç»™å®šæ•°å­—åºåˆ—é‡æ–°æ’åˆ—æˆå­—å…¸åºä¸­ä¸‹ä¸€ä¸ªæ›´å¤§çš„æ’åˆ—ã€‚
+ * 31. ÏÂÒ»¸öÅÅÁĞ
+ * ÊµÏÖ»ñÈ¡ÏÂÒ»¸öÅÅÁĞµÄº¯Êı£¬Ëã·¨ĞèÒª½«¸ø¶¨Êı×ÖĞòÁĞÖØĞÂÅÅÁĞ³É×ÖµäĞòÖĞÏÂÒ»¸ö¸ü´óµÄÅÅÁĞ¡£
  *
- * @author mango
- * @create 2019-03-17 3:57 PM
+ * Èç¹û²»´æÔÚÏÂÒ»¸ö¸ü´óµÄÅÅÁĞ£¬Ôò½«Êı×ÖÖØĞÂÅÅÁĞ³É×îĞ¡µÄÅÅÁĞ£¨¼´ÉıĞòÅÅÁĞ£©¡£
+ *
+ * ±ØĞëÔ­µØĞŞ¸Ä£¬Ö»ÔÊĞíÊ¹ÓÃ¶îÍâ³£Êı¿Õ¼ä¡£
+ *
+ * ÒÔÏÂÊÇÒ»Ğ©Àı×Ó£¬ÊäÈëÎ»ÓÚ×ó²àÁĞ£¬ÆäÏàÓ¦Êä³öÎ»ÓÚÓÒ²àÁĞ¡£
+ * 1,2,3 ¡ú 1,3,2
+ * 3,2,1 ¡ú 1,2,3
+ * 1,1,5 ¡ú 1,5,1
+ *
+ * @author Wang Guolong
+ * @version 1.0
+ * @date 2020/4/8 12:38 ÏÂÎç
  */
 public class NextPermutation {
+    /**
+     * https://www.bilibili.com/video/BV1N4411V7Yw?from=search&seid=988948089204799977
+     * Ëã·¨ÃèÊö£º
+     * ´ÓÓÒÏò×óÕÒµÚÒ»¸öÇ°Ãæ±ÈºóÃæĞ¡µÄÊı
+     * ÔÙ´ÓÓÒÏò×óÕÒµÚÒ»¸ö±È¸ÕÕÒµ½ÄÇ¸öÊı´óµÄÊı
+     * Á½¸öÊı½»»»
+     * Ö®ºó°ÑºóÃæµÄËùÓĞÊıµ÷»»Ë³Ğò
+     * @param nums
+     */
     public void nextPermutation(int[] nums) {
+        int n = nums.length;
+        int i = n - 2;
+        while (i >= 0 && nums[i] >= nums[i + 1]) {
+            i--;
+        }
+        if (i >= 0) {
+            int j = n - 1;
+            while (j > i && nums[j] <= nums[i]) {
+                j--;
+            }
+            swap(nums, i, j);
+        }
+        reverse(nums, i + 1, n - 1);
+    }
 
+    private void swap(int[] nums, int i, int j) {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+    private void reverse(int[] nums, int low, int high) {
+        while (low < high) {
+            swap(nums, low++, high--);
+        }
     }
 }
