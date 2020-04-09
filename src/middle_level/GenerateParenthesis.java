@@ -33,9 +33,16 @@ public class GenerateParenthesis {
             return;
         }
 
-        if (open < max)
+        if (open < max) {
             backtrack(ans, cur+"(", open+1, close, max);
-        if (close < open)
+        }
+        if (close < open) {
             backtrack(ans, cur+")", open, close+1, max);
+        }
+    }
+
+    public static void main(String[] args) {
+        GenerateParenthesis gp = new GenerateParenthesis();
+        System.out.println(gp.generateParenthesis(3));
     }
 }
