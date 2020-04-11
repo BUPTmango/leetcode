@@ -28,7 +28,7 @@ public class IsPalindrome {
      * 首先将链表转换成list
      * 之后双指针从两侧向中间靠 检查是否一致
      *
-     * 超出实现限制
+     * 超出时间限制
      * @param head
      * @return
      */
