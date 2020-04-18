@@ -63,6 +63,26 @@ public class MaxArea {
         return maxArea;
     }
 
+    /**
+     *  每次选定围成水槽两板高度 h[i]h[i],h[j]h[j] 中的短板，向中间收窄 11 格。以下证明：
+     * 设每一状态下水槽面积为 S(i, j)S(i,j),(0 <= i < j < n)(0<=i<j<n)，由于水槽的实际高度由两板中的短板决定，则可得面积公式 S(i, j) = min(h[i], h[j]) × (j - i)S(i,j)=min(h[i],h[j])×(j−i)。
+     * 在每一个状态下，无论长板或短板收窄 11 格，都会导致水槽 底边宽度 -1−1：
+     * 若向内移动短板，水槽的短板 min(h[i], h[j])min(h[i],h[j]) 可能变大，因此水槽面积 S(i, j)S(i,j) 可能增大。
+     * 若向内移动长板，水槽的短板 min(h[i], h[j])min(h[i],h[j]) 不变或变小，下个水槽的面积一定小于当前水槽面积。
+     * 因此，向内收窄短板可以获取面积最大值。
+     * @param height
+     * @return
+     */
+    public static int maxArea_better_easy(int[] height) {
+        int i = 0, j = height.length - 1, res = 0;
+        while(i < j){
+            res = height[i] < height[j] ?
+                    Math.max(res, (j - i) * height[i++]):
+                    Math.max(res, (j - i) * height[j--]);
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         System.out.println(maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
     }
