@@ -30,6 +30,15 @@ import java.util.Set;
  * @create 2019-03-30 8:52 PM
  */
 public class LengthOfLongestSubstring {
+    /**
+     * 滑动窗口
+     * 定义不重复的字串开始位置为j，结束位置为i
+     * 随着 i 不断遍历向后，会遇到与 [j, i] 区间内字符相同的情况，
+     * 此时将字符作为 key 值，获取其 value 值，并更新 j，此时 [j, i] 区间内不存在重复字符
+     * 无论是否更新 j，都会更新其 map 数据结构和结果 ans。
+     * @param s
+     * @return
+     */
     public static int lengthOfLongestSubstring(String s) {
         if (s == null || s.equals("")) {
             return 0;
@@ -42,7 +51,9 @@ public class LengthOfLongestSubstring {
                 //将重复的上一个字符之前的扔掉 就是将j向后挪一位
                 j = Math.max(j, map.get(s.charAt(i)) + 1);
             }
+            // 更新字符出现的位置
             map.put(s.charAt(i), i);
+            // 用窗口的长度更新结果的最大值
             max = Math.max(max, i - j + 1);
         }
         return max;
