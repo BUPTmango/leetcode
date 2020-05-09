@@ -1,0 +1,78 @@
+package middle_level;
+
+import data_structure.Graph.Node;
+
+import java.util.*;
+
+/**
+ * 133. 克隆图
+ * 给你无向?连通?图中一个节点的引用，请你返回该图的?深拷贝（克隆）。
+ *
+ * 图中的每个节点都包含它的值 val（int） 和其邻居的列表（list[Node]）。
+ *
+ * class Node {
+ *     public int val;
+ *     public List<Node> neighbors;
+ * }
+ * ?
+ *
+ * 测试用例格式：
+ *
+ * 简单起见，每个节点的值都和它的索引相同。例如，第一个节点值为 1（val = 1），第二个节点值为 2（val = 2），以此类推。该图在测试用例中使用邻接列表表示。
+ *
+ * 邻接列表 是用于表示有限图的无序列表的集合。每个列表都描述了图中节点的邻居集。
+ *
+ * 给定节点将始终是图中的第一个节点（值为 1）。你必须将?给定节点的拷贝?作为对克隆图的引用返回。
+ *
+ * @author Wang Guolong
+ * @version 1.0
+ * @date 2020/5/8 12:22 上午
+ */
+public class CloneGraph {
+    /**
+     * 不太明白
+     * DFS
+     * @param node
+     * @return
+     */
+    public Node cloneGraph_DFS(Node node) {
+        Map<Node, Node> lookup = new HashMap<>();
+        return dfs(node, lookup);
+    }
+
+    private Node dfs(Node node, Map<Node,Node> lookup) {
+        if (node == null) return null;
+        if (lookup.containsKey(node)) return lookup.get(node);
+        Node clone = new Node(node.val, new ArrayList<>());
+        lookup.put(node, clone);
+        for (Node n : node.neighbors)clone.neighbors.add(dfs(n,lookup));
+        return clone;
+    }
+
+
+    /**
+     *  不太明白
+     * BFS
+     * @param node
+     * @return
+     */
+    public Node cloneGraph_BFS(Node node) {
+        if (node == null) return null;
+        Map<Node, Node> lookup = new HashMap<>();
+        Node clone = new Node(node.val, new ArrayList<>());
+        lookup.put(node, clone);
+        Deque<Node> queue = new LinkedList<>();
+        queue.offer(node);
+        while (!queue.isEmpty()) {
+            Node tmp = queue.poll();
+            for (Node n : tmp.neighbors) {
+                if (!lookup.containsKey(n)) {
+                    lookup.put(n, new Node(n.val, new ArrayList<>()));
+                    queue.offer(n);
+                }
+                lookup.get(tmp).neighbors.add(lookup.get(n));
+            }
+        }
+        return clone;
+    }
+}
