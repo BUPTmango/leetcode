@@ -26,12 +26,15 @@ public class StrStr {
             return 0;
         }
         for (int i = 0; i < haystack.length(); i++) {
+            // index为在needle中的位置
             int index = 0;
+            // j为在haystack中的位置
             int j = i;
             while (j < haystack.length()) {
                 if (haystack.charAt(j) == needle.charAt(index)) {
                     j++;
                     index++;
+                    // 比较到最后都相等就返回
                     if (index == needle.length()) {
                         return i;
                     }
