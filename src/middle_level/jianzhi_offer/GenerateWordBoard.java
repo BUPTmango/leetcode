@@ -13,17 +13,11 @@ public class GenerateWordBoard {
     private static char[][] board;
 
     public static void main(String[] args) {
-        generateCharBoard("vocabulary", 5, 5);
+        GenerateWordBoard g = new GenerateWordBoard();
+        g.generateCharBoard("vocabulary", 5, 5);
     }
 
-    /**
-     * 生成棋盘
-     *
-     * @param word 单词
-     * @param m    长度
-     * @param n    宽度
-     */
-    private static void generateCharBoard(String word, int m, int n) {
+    private void generateCharBoard(String word, int m, int n) {
         // 单词为空 直接返回
         if (word.isEmpty()) {
             return;
@@ -32,23 +26,27 @@ public class GenerateWordBoard {
         if (word.length() > m * n) {
             return;
         }
-
-        // 初始化
-        board = new char[m][n];
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++) {
-                board[i][j] = '*';
-            }
-        }
+        // 初始化棋盘 全为*
+        initBoard(m, n);
 
         char[] wordChar = word.toCharArray();
         // 随机选取一个位置开始
         Random random = new Random();
         int randomX = random.nextInt(m);
         int randomY = random.nextInt(n);
-        // 开始dfs铺单词 从index 0 开始
-        generateDfs(board, wordChar, randomX, randomY, 0);
-
+        // 开始从随机位置dfs铺单词 从index 0 开始
+        boolean result = generateDfs(board, wordChar, randomX, randomY, 0);
+        // 如果没有找到路线 那么从四个角开始 必能找到一条路
+        if (!result) {
+            List<int[]> starts = Arrays.asList(new int[]{0, 0}, new int[]{0, n - 1}, new int[]{m - 1, 0},
+                    new int[]{m - 1, n - 1});
+            // 随机四个角的一个
+            Collections.shuffle(starts);
+            // 初始化棋盘
+            initBoard(m, n);
+            // dfs铺单词
+            generateDfs(board, wordChar, starts.get(0)[0], starts.get(0)[1], 0);
+        }
         // 查看结果
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
@@ -58,10 +56,20 @@ public class GenerateWordBoard {
         }
     }
 
+    private void initBoard(int m, int n) {
+        // 初始化
+        board = new char[m][n];
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                board[i][j] = '*';
+            }
+        }
+    }
+
     /**
      * 返回true则为找到一条路 返回false为死路
      */
-    private static boolean generateDfs(char[][] board, char[] wordChar, int i, int j, int index) {
+    private boolean generateDfs(char[][] board, char[] wordChar, int i, int j, int index) {
         // 碰到边 或者碰到已经走过的位置 不能走了 死路
         if (i >= board.length || i < 0 || j >= board[0].length || j < 0 || board[i][j] == '/') {
             return false;
