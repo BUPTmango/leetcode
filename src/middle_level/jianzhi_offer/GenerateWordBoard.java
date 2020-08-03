@@ -110,7 +110,7 @@ public class GenerateWordBoard {
             }
         }
         // »¹Ô­¾ØÕóÔªËØ
-        board[i][j] = tmp;
+        board[i][j] = '*';
         return false;
     }
 }
