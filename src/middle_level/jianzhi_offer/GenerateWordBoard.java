@@ -84,6 +84,7 @@ public class GenerateWordBoard {
         // 查看能走几个方向 随机选择一个
         List<int[]> directions = Arrays.asList(new int[]{-1, 0}, new int[]{1, 0}, new int[]{0, -1}, new int[]{0, 1});
         Collections.shuffle(directions);
+
         boolean res = false;
         for (int k = 0; k < directions.size(); k++) {
             int di = i + directions.get(k)[0], dj = j + directions.get(k)[1];
@@ -93,6 +94,7 @@ public class GenerateWordBoard {
             } else {
                 res = res || partialRes;
             }
+            // 如果res为true 说明找到一条路 就不再遍历了 还原后返回true
             if (res) {
                 // 还原矩阵元素
                 board[i][j] = tmp;
