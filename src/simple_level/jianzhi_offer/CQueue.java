@@ -51,6 +51,7 @@ public class CQueue {
         while (!stack1.isEmpty()) {
             stack2.add(stack1.pop());
         }
+        // 注意！！！ stack2为空的时候要进行判断 返回-1
         if (stack2.isEmpty()) {
             return -1;
         }
