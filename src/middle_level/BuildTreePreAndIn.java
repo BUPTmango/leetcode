@@ -28,7 +28,7 @@ import java.util.Map;
  * @version 1.0
  * @date 2020/5/29 9:42 ионГ
  */
-public class BuildTree {
+public class BuildTreePreAndIn {
     private Map<Integer, Integer> indexMap;
 
     public TreeNode myBuildTree(int[] preorder, int[] inorder, int preorder_left, int preorder_right, int inorder_left, int inorder_right) {
