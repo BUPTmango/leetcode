@@ -27,6 +27,7 @@ public class PrintNumbers {
         int length = (int) Math.pow(10, n) - 1;
         int[] result = new int[length];
         for (int i = 0; i < length; i++) {
+            // 注意！！！！ 这里注意索引的关系 索引从0开始 要错位赋值
             result[i] = i + 1;
         }
         return result;
