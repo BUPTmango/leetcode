@@ -23,27 +23,30 @@ import java.util.*;
  */
 public class TopKFrequent {
     public List<Integer> topKFrequent(int[] nums, int k) {
-        // build hash map : character and how often it appears
+        // 通过map统计数字出现次数
         HashMap<Integer, Integer> count = new HashMap();
         for (int n: nums) {
             count.put(n, count.getOrDefault(n, 0) + 1);
         }
 
-        // init heap 'the less frequent element first'
+        // 定义优先队列排序规则 根据出现次数排序
         PriorityQueue<Integer> heap =
-                new PriorityQueue<Integer>(Comparator.comparingInt(count::get));
+                new PriorityQueue<>(Comparator.comparingInt(count::get));
 
-        // keep k top frequent elements in the heap
+        // 保持队列中有k个元素
         for (int n: count.keySet()) {
             heap.add(n);
-            if (heap.size() > k)
+            if (heap.size() > k) {
                 heap.poll();
+            }
         }
 
-        // build output list
+        // 遍历输出
         List<Integer> top_k = new LinkedList();
-        while (!heap.isEmpty())
+        while (!heap.isEmpty()) {
             top_k.add(heap.poll());
+        }
+        // 倒序
         Collections.reverse(top_k);
         return top_k;
     }
