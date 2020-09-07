@@ -33,10 +33,12 @@ import data_structure.linked_list.ListNode;
  */
 public class DeleteNode {
     public ListNode deleteNode(ListNode head, int val) {
+        // 如果删除的是头节点 直接返回头节点的下一个节点
         if (head.val == val) {
             return head.next;
         }
         ListNode dummy = new ListNode(0);
+        // 定义dummy的下一节点是head 接下来对dummy后面的链表进行处理 最后返回dummy.next
         dummy.next = head;
         while (head != null && head.next != null) {
             if (head.next.val == val) {
