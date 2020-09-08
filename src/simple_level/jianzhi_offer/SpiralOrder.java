@@ -24,15 +24,13 @@ import java.util.List;
  * 0 <= matrix.length <= 100
  * 0 <= matrix[i].length?<= 100
  *
- * 来源：力扣（LeetCode）
- * 链接：https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof
- * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  * @author Wang Guolong
  * @version 1.0
  * @date 2020/3/13 12:40 下午
  */
 public class SpiralOrder {
     public int[] spiralOrder(int[][] matrix) {
+        // 定义顺时针的四个方向
         int[] dx = {0, 1, 0, -1};
         int[] dy = {1, 0, -1, 0};
         int m = matrix.length;
@@ -46,7 +44,9 @@ public class SpiralOrder {
         int y = 0;
         List<Integer> res = new ArrayList<>();
         while (res.size() < n * m) {
+            // 添加当前元素
             res.add(matrix[x][y]);
+            // 记录访问过当前元素
             visited[x][y] = true;
             int nx = x + dx[d];
             int ny = y + dy[d];
@@ -54,6 +54,7 @@ public class SpiralOrder {
                 x = nx;
                 y = ny;
             } else {
+                // 越界了 换下一个方向
                 d = (d + 1) % 4;
                 nx = x + dx[d];
                 ny = y + dy[d];
@@ -68,12 +69,21 @@ public class SpiralOrder {
         return result;
     }
 
+    /**
+     * 速度快 推荐
+     * @param matrix
+     * @return
+     */
     public int[] spiralOrder2(int[][] matrix) {
         if(matrix.length == 0) {
             return new int[0];
         }
+        // 矩阵 左、右、上、下 四个边界 l , r , t , b
         int l = 0, r = matrix[0].length - 1, t = 0, b = matrix.length - 1, x = 0;
         int[] res = new int[(r + 1) * (b + 1)];
+        // 根据边界打印，即将元素按顺序添加至列表 res 尾部；
+        // 边界向内收缩 11 （代表已被打印）；
+        // 判断是否打印完毕（边界是否相遇），若打印完毕则跳出。
         while(true) {
             for(int i = l; i <= r; i++) {
                 res[x++] = matrix[t][i]; // left to right.

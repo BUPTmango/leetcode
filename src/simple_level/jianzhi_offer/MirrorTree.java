@@ -42,9 +42,11 @@ public class MirrorTree {
         if (root == null) {
             return null;
         }
+
         TreeNode middle = root.left;
         root.left = root.right;
         root.right = middle;
+
         mirrorTree(root.left);
         mirrorTree(root.right);
         return root;
