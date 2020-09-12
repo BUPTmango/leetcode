@@ -50,7 +50,7 @@ public class CombinationSum {
     }
 
     private void process(int start, int[] candidates, int target, List<Integer> list) {
-        //递归的终止条件 因为题目上说的是正整数
+        // 递归的终止条件 因为题目上说的是正整数
         if (target < 0) {
             return;
         }
@@ -60,7 +60,7 @@ public class CombinationSum {
         } else {
             for (int i = start; i < candidates.length; i++) {
                 list.add(candidates[i]);
-                //因为每个数字都可以使用无数次，所以递归还可以从当前元素开始
+                // 因为每个数字都可以使用无数次，所以递归还可以从当前元素开始
                 process(i, candidates, target - candidates[i], list);
                 // 进行回溯 要删除最后一个节点
                 list.remove(list.size() - 1);
