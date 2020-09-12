@@ -43,13 +43,15 @@ public class AverageOfLevels {
         // 进行遍历
         average(root, 0, res, count);
         // sum / cnt
-        for (int i = 0; i < res.size(); i++)
+        for (int i = 0; i < res.size(); i++) {
             res.set(i, res.get(i) / count.get(i));
+        }
         return res;
     }
     private void average(TreeNode t, int i, List<Double> sum, List<Integer> count) {
-        if (t == null)
+        if (t == null) {
             return;
+        }
         // 处理根
         if (i < sum.size()) { // 层数小于sum的大小，表示当前层已经有元素了，那就要更新数组而不是增加新元素
             sum.set(i, sum.get(i) + t.val);
@@ -83,14 +85,21 @@ public class AverageOfLevels {
             Queue <TreeNode> temp = new LinkedList<> ();
             while (!queue.isEmpty()) {
                 TreeNode n = queue.remove();
-                sum += n.val; // 计算当前层的和
-                count++; // 计算当前层的个数
-                if (n.left != null)
-                    temp.add(n.left); // 将下一层(左节点)添加到temp
-                if (n.right != null)
-                    temp.add(n.right); // 将下一层(右节点)添加到temp
+                // 计算当前层的和
+                sum += n.val;
+                // 计算当前层的个数
+                count++;
+                if (n.left != null) {
+                    // 将下一层(左节点)添加到temp
+                    temp.add(n.left);
+                }
+                if (n.right != null) {
+                    // 将下一层(右节点)添加到temp
+                    temp.add(n.right);
+                }
             }
-            queue = temp; // 把temp中元素放入queue中，进行下一轮循环
+            // 把temp中元素放入queue中，进行下一轮循环
+            queue = temp;
             res.add(sum * 1.0 / count);
         }
         return res;

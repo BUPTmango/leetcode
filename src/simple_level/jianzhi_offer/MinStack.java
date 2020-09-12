@@ -41,7 +41,8 @@ class MinStack {
 
     public void push(int x) {
         stack.push(x);
-        if (min.isEmpty() || x <= min.peek()) {        //  注意这里x <= min.peek()是有=的，否则会报错
+        // 注意!!!! 这里x <= min.peek()是有=的，否则会报错
+        if (min.isEmpty() || x <= min.peek()) {
             min.push(x);
         }
     }
