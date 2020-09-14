@@ -22,20 +22,21 @@ package simple_level.jianzhi_offer;
  * @date 2020/3/7 9:01 上午
  */
 public class MaxSubArray {
+    /**
+     * 若 dp[i?1]≤0 ，说明 dp[i?1] 对 dp[i] 产生负贡献，即 dp[i?1]+nums[i] 还不如 nums[i] 本身大。
+     *
+     * 当 dp[i?1]>0 时：执行 dp[i]=dp[i?1]+nums[i] ；
+     * 当 dp[i?1]≤0 时：执行 dp[i]=nums[i] ；
+     *
+     * @param nums
+     * @return
+     */
     public int maxSubArray(int[] nums) {
-        if (nums == null || nums.length == 0) {
-            return 0;
+        int res = nums[0];
+        for(int i = 1; i < nums.length; i++) {
+            nums[i] += Math.max(nums[i - 1], 0);
+            res = Math.max(res, nums[i]);
         }
-
-        int[] dp = new int[nums.length];
-        dp[0] = nums[0];
-        int max = dp[0];
-
-        for (int i = 1; i < nums.length; i++) {
-            dp[i] = nums[i] > nums[i] + dp[i - 1] ? nums[i] : nums[i] + dp[i - 1];
-            max = Math.max(dp[i], max);
-        }
-
-        return max;
+        return res;
     }
 }

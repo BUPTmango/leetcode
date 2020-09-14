@@ -37,4 +37,20 @@ public class MajorityElement {
         }
         return -1;
     }
+
+    /**
+     * 票数和： 由于众数出现的次数超过数组长度的一半；若记 众数 的票数为 +1 ，非众数 的票数为 -1 ，则一定有所有数字的 票数和 > 0 。
+     * @param nums
+     * @return
+     */
+    public int majorityElement_vote(int[] nums) {
+        int x = 0, votes = 0;
+        for(int num : nums){
+            if(votes == 0) {
+                x = num;
+            }
+            votes += num == x ? 1 : -1;
+        }
+        return x;
+    }
 }
