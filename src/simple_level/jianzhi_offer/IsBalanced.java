@@ -47,9 +47,11 @@ public class IsBalanced {
         if (root == null) {
             return true;
         }
+        // 先看左右子树分别是不是平衡的
         if ((!isBalanced(root.left)) || (!isBalanced(root.right))) {
             return false;
         }
+        // 之后看左右子树的高度差不能超过1
         if (Math.abs(getHeight(root.left) - getHeight(root.right)) > 1) {
             return false;
         }

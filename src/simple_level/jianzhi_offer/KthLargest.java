@@ -2,6 +2,8 @@ package simple_level.jianzhi_offer;
 
 import data_structure.TreeNode;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Stack;
 
@@ -72,5 +74,29 @@ public class KthLargest {
             count--;
             kthLargest(root.left);
         }
+    }
+
+
+    // 中序遍历为排序好的数组
+    List<Integer> list = new ArrayList<>();
+
+    /**
+     * 中序遍历之后为从小到大的有序数组，之后取size - k索引位置的元素
+     * @param root
+     * @param k
+     * @return
+     */
+    public int kthLargest_inorder(TreeNode root, int k) {
+        inorder(root);
+        return list.get(list.size() - k);
+    }
+
+    private void inorder(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        inorder(root.left);
+        list.add(root.val);
+        inorder(root.right);
     }
 }
