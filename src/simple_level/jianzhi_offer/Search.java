@@ -37,6 +37,12 @@ public class Search {
         return map.get(target) == null ? 0 : map.get(target);
     }
 
+    /**
+     * 应用两次二分，分别查找 right 和 left ，最终返回 right - left - 1 即可
+     * @param nums
+     * @param target
+     * @return
+     */
     public int search_binary(int[] nums, int target) {
         // 搜索右边界 right
         int i = 0, j = nums.length - 1;
