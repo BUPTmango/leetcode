@@ -1,6 +1,7 @@
 package simple_level;
 
 /**
+ * 《玩转算法面试视频例题》
  * 283
  * 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序。
  *
@@ -59,6 +60,7 @@ public class MoveZeroes {
      */
     public void moveZeroes_better(int[] nums) {
         int temp;
+        // idx指向下一个要交换的0的位置
         int idx = 0;
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] != 0) {
