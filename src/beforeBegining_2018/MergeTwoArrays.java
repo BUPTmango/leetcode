@@ -3,6 +3,8 @@ package beforeBegining_2018;
 import java.util.Arrays;
 
 /**
+ * 《玩转算法面试视频例题》
+ * 88. 合并两个有序数组
  * 给定两个有序整数数组 nums1 和 nums2，将 nums2 合并到 nums1 中，使得 num1 成为一个有序数组。
  *
  * 说明:
@@ -18,43 +20,29 @@ import java.util.Arrays;
  * @create 2019-02-27 2:24 PM
  */
 public class MergeTwoArrays {
-    public static int[] merge(int[] nums1, int m, int[] nums2, int n) {
-        int index1 = 0, index2 = 0, index = 0;
-        int[] nums3 = new int[m + n];
-        //遍历完二者小的 就停止了
-        while (index1 < m && index2 < n) {
-            if (nums1[index1] <= nums2[index2]) {
-                nums3[index] = nums1[index1];
-                index1++;
-                index++;
-            } else {
-                nums3[index] = nums2[index2];
-                index2++;
-                index++;
-            }
-        }
-        //继续遍历剩下的那一个数组的内容
-        if (index1 < m) {
-            while (index1 < m) {
-                nums3[index] = nums1[index1];
-                index1++;
-                index++;
-            }
-        }
-        if (index2 < n) {
-            while (index2 < n) {
-                nums3[index] = nums2[index2];
-                index2++;
-                index++;
-            }
-        }
-        return nums3;
-    }
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        // 创建一个nums1的拷贝
+        int [] nums1_copy = new int[m];
+        System.arraycopy(nums1, 0, nums1_copy, 0, m);
 
-    public static void main(String[] args) {
-        int[] nums1 = {1,2,3};
-        int[] nums2 = {2,5,6};
-        int[] num3 = merge(nums1, nums1.length, nums2, nums2.length);
-        System.out.println(Arrays.toString(num3));
+        // 创建两个指针 分别是指向nums1的copy和nums2的
+        int p1 = 0;
+        int p2 = 0;
+
+        // 设置nums1的指针
+        int p = 0;
+
+        // 比较nums1的copy和nums2中的较小者放入nums1中
+        while ((p1 < m) && (p2 < n)) {
+            nums1[p++] = (nums1_copy[p1] < nums2[p2]) ? nums1_copy[p1++] : nums2[p2++];
+        }
+
+        // 两个数组中有一个已经遍历完 另一个还剩下元素
+        if (p1 < m) {
+            System.arraycopy(nums1_copy, p1, nums1, p1 + p2, m + n - p1 - p2);
+        }
+        if (p2 < n) {
+            System.arraycopy(nums2, p2, nums1, p1 + p2, m + n - p1 - p2);
+        }
     }
 }

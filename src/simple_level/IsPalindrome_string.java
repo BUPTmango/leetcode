@@ -1,6 +1,7 @@
 package simple_level;
 
 /**
+ * 《玩转算法面试视频例题》
  * 125. 验证回文串
  * 给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
  * <p>
@@ -29,32 +30,34 @@ public class IsPalindrome_string {
         return sb.toString().equals(sb.reverse().toString());
     }
 
+    /**
+     * 对撞指针法
+     * @param s
+     * @return
+     */
     public boolean isPalindrome_twoPointer(String s) {
 
-        if (s.length() == 0)
+        if (s.length() == 0) {
             return true;
+        }
 
         String low = s.toLowerCase();
 
         int i = 0;
         int j = low.length() - 1;
 
-        while (i < j)
-        {
-            if (!Character.isLetterOrDigit(low.charAt(i)))
-            {
+        while (i < j) {
+            if (!Character.isLetterOrDigit(low.charAt(i))) {
                 i++;
                 continue;
             }
-            if (!Character.isLetterOrDigit(low.charAt(j)))
-            {
+            if (!Character.isLetterOrDigit(low.charAt(j))) {
                 j--;
                 continue;
             }
-            if (low.charAt(i) != low.charAt(j))
+            if (low.charAt(i) != low.charAt(j)) {
                 return false;
-            else
-            {
+            } else {
                 i++;
                 j--;
             }

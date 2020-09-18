@@ -5,6 +5,7 @@ import com.sun.org.apache.bcel.internal.generic.RETURN;
 import java.util.Arrays;
 
 /**
+ * 《玩转算法面试视频例题》
  * 167
  * 给定一个已按照升序排列 的有序数组，找到两个数使得它们相加之和等于目标数
  * 函数应该返回这两个下标值 index1 和 index2，其中 index1 必须小于 index2。
@@ -24,6 +25,7 @@ import java.util.Arrays;
 public class TwoSumII {
     /**
      * 暴力解法
+     * 暴力解法没用充分利用数组的性质--有序
      * @param numbers
      * @param target
      * @return
@@ -44,6 +46,7 @@ public class TwoSumII {
 
     /**
      * 二分查找法
+     * 数组有序 就会想到用二分查找法优化
      * @param numbers
      * @param target
      * @return
@@ -80,6 +83,8 @@ public class TwoSumII {
     public static int[] twoSum_pointer(int[] numbers, int target) {
         int head = 0;
         int tail = numbers.length - 1;
+        // 如果head == tail的时候两个指针就指向相同元素了
+        // 由于这道题需要找到两个不同的索引 所以要用<
         while (head < tail) {
             if (numbers[head] + numbers[tail] == target) {
                 return new int[]{head + 1, tail + 1};
