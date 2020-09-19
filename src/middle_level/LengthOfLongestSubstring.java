@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * 《玩转算法面试视频例题》 滑动窗口
  * 3
  * 给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
  *
@@ -47,8 +48,9 @@ public class LengthOfLongestSubstring {
         int max = 0;
         int j = 0;
         for (int i = 0; i < s.length(); i++) {
-            if (map.containsKey(s.charAt(i))) {//存在重复字符
-                //将重复的上一个字符之前的扔掉 就是将j向后挪一位
+            // 存在重复字符
+            if (map.containsKey(s.charAt(i))) {
+                // 将重复的上一个字符之前的扔掉 就是将j向后挪一位
                 j = Math.max(j, map.get(s.charAt(i)) + 1);
             }
             // 更新字符出现的位置
@@ -59,7 +61,25 @@ public class LengthOfLongestSubstring {
         return max;
     }
 
+    public static int lengthOfLongestSubstring_another(String s) {
+        int[] freq = new int[256];
+        // 滑动窗口为s[l, r]
+        int l = 0;
+        int r = -1;
+        int res = 0;
+
+        while (l < s.length()) {
+            if (r + 1 < s.length() && freq[s.charAt(r + 1)] == 0) {
+                freq[s.charAt(++r)]++;
+            } else {
+                freq[s.charAt(l++)]--;
+            }
+            res = Math.max(res, r - l + 1);
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
-        System.out.println(lengthOfLongestSubstring("pwwkew"));
+        System.out.println(lengthOfLongestSubstring_another("abcabcbb"));
     }
 }
