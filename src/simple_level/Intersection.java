@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
+ * 《玩转算法面试视频例题》查找问题 set
  * 349. 两个数组的交集
  * 给定两个数组，编写一个函数来计算它们的交集。
  *
