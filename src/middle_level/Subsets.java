@@ -32,7 +32,7 @@ public class Subsets {
 
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
-        backtrack(0, nums, res, new ArrayList<Integer>());
+        backtrack(0, nums, res, new ArrayList<>());
         return res;
 
     }
@@ -43,7 +43,8 @@ public class Subsets {
         for (int j = i; j < nums.length; j++) {
             tmp.add(nums[j]);
             backtrack(j + 1, nums, res, tmp);
-            tmp.remove(tmp.size() - 1); // 不合适就回退上一步
+            // 不合适就回退上一步
+            tmp.remove(tmp.size() - 1);
         }
     }
 }
