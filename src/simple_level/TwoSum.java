@@ -2,7 +2,9 @@ package simple_level;
 
 import java.util.*;
 
-/**No.1
+/**
+ * 《玩转算法面试视频例题》查找问题 sum
+ * No.1
  * 给定一个整数数组 nums 和一个目标值 target，
  * 请你在该数组中找出和为目标值的那 两个 整数，
  * 并返回他们的数组下标。
@@ -48,6 +50,8 @@ public class TwoSum {
             if (hashMap.containsKey(target - num1)) {
                 return new int[]{i, hashMap.get(target - num1)};
             }
+            // 不要一次性把所有元素都放进去 会出现相同元素相互覆盖的问题
+            // 这样就是每次把i之前的元素放到hash表中，之后查找过后再进行put
             hashMap.put(num1, i);
         }
         throw new IllegalArgumentException("No two sum solution");

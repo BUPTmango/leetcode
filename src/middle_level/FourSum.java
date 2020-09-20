@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * 《玩转算法面试视频例题》查找问题 sum
+ * 18. 四数之和
  * 给定一个包含 n 个整数的数组 nums 和一个目标值 target，
  * 判断 nums 中是否存在四个元素 a，b，c 和 d ，
  * 使得 a + b + c + d 的值与 target 相等？
@@ -26,52 +28,77 @@ import java.util.List;
  */
 public class FourSum {
     public static List<List<Integer>> fourSum(int[] nums, int target) {
-        if (nums == null || nums.length < 4) {
-            return Collections.EMPTY_LIST;
-        }
+        /*定义一个返回值*/
         List<List<Integer>> result = new ArrayList<>();
+        /*当数组为null或元素小于4个时，直接返回*/
+        if (nums == null || nums.length < 4) {
+            return result;
+        }
+        /*对数组进行从小到大排序*/
         Arrays.sort(nums);
-        for (int m = 0; m < nums.length - 3; m++) {
-            //重复的跳过
-            if (m > 0 && nums[m] == nums[m - 1]) {
+        /*数组长度*/
+        int length = nums.length;
+        /*定义4个指针k，i，j，h  k从0开始遍历，i从k+1开始遍历，留下j和h，j指向i+1，h指向数组最大值*/
+        for (int k = 0; k < length - 3; k++) {
+            /*当k的值与前面的值相等时忽略*/
+            if (k > 0 && nums[k] == nums[k - 1]) {
                 continue;
             }
-            for (int n = m + 1; n < nums.length - 2; n++) {
-                //  重复的跳过
-                if (n > m + 1 && nums[n] == nums[n - 1]) {
+            /*获取当前最小值，如果最小值比目标值大，说明后面越来越大的值根本没戏*/
+            int min1 = nums[k] + nums[k + 1] + nums[k + 2] + nums[k + 3];
+            if (min1 > target) {
+                break;
+            }
+            /*获取当前最大值，如果最大值比目标值小，说明后面越来越小的值根本没戏，忽略*/
+            int max1 = nums[k] + nums[length - 1] + nums[length - 2] + nums[length - 3];
+            if (max1 < target) {
+                continue;
+            }
+            /*第二层循环i，初始值指向k+1*/
+            for (int i = k + 1; i < length - 2; i++) {
+                /*当i的值与前面的值相等时忽略*/
+                if (i > k + 1 && nums[i] == nums[i - 1]) {
                     continue;
                 }
-                int j = n + 1, k = nums.length - 1;
-                while (j < k) {
-                    if (nums[m] + nums[n] + nums[j] + nums[k] == target) {
-                        List<Integer> list = new ArrayList<>();
-                        list.add(nums[m]);
-                        list.add(nums[n]);
-                        list.add(nums[j]);
-                        list.add(nums[k]);
-                        result.add(list);
-                        //当有重复的数字出现时，j往前跑，防止结果有重复
-                        while (j < k && nums[j] == nums[j + 1]) {
+                /*定义指针j指向i+1*/
+                int j = i + 1;
+                /*定义指针h指向数组末尾*/
+                int h = length - 1;
+                /*获取当前最小值，如果最小值比目标值大，说明后面越来越大的值根本没戏*/
+                int min = nums[k] + nums[i] + nums[j] + nums[j + 1];
+                if (min > target) {
+                    break;
+                }
+                /*获取当前最大值，如果最大值比目标值小，说明后面越来越小的值根本没戏，忽略*/
+                int max = nums[k] + nums[i] + nums[h] + nums[h - 1];
+                if (max < target) {
+                    continue;
+                }
+                /*开始j指针和h指针的表演，计算当前和，如果等于目标值，j++并去重，h--并去重，当当前和大于目标值时h--，当当前和小于目标值时j++*/
+                while (j < h) {
+                    int curr = nums[k] + nums[i] + nums[j] + nums[h];
+                    if (curr == target) {
+                        result.add(Arrays.asList(nums[k], nums[i], nums[j], nums[h]));
+                        j++;
+                        while (j < h && nums[j] == nums[j - 1]) {
                             j++;
                         }
-                        while (j < k && nums[k] == nums[k - 1]) {
-                            k--;
+                        h--;
+                        while (j < h && i < h && nums[h] == nums[h + 1]) {
+                            h--;
                         }
-                        j++;
-                        k--;
-                    } else if (nums[m] + nums[n] + nums[j] + nums[k] < target) {
-                        j++;
+                    } else if (curr > target) {
+                        h--;
                     } else {
-                        k--;
+                        j++;
                     }
                 }
-
             }
         }
         return result;
     }
 
     public static void main(String[] args) {
-        System.out.println(fourSum(new int[]{0,0,0,0}, 0));
+        System.out.println(fourSum(new int[]{0, 0, 0, 0}, 0));
     }
 }
