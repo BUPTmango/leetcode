@@ -30,6 +30,11 @@ package simple_level.jianzhi_offer;
  * @date 2020/3/14 5:15 ÏÂÎç
  */
 public class ReverseWords {
+    /**
+     * ·Ö¸î + µ¹Ðò
+     * @param s
+     * @return
+     */
     public String reverseWords(String s) {
         if (s == null || s.length() == 0) {
             return "";
@@ -44,7 +49,7 @@ public class ReverseWords {
                 sb.append(result[i] + " ");
             }
         }
-        return sb.toString().substring(0, sb.toString().length() - 1);
+        return sb.substring(0, sb.toString().length() - 1);
     }
 
     public static void main(String[] args) {
