@@ -4,13 +4,15 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
+ * 《玩转算法面试视频例题》查找问题 sum
  * 16
  * 给定一个包括 n 个整数的数组 nums 和 一个目标值 target。
  * 找出 nums 中的三个整数，使得它们的和与 target 最接近。返回这三个数的和。假定每组输入只存在唯一答案。
- *
+ * <p>
  * 例如，给定数组 nums = [-1，2，1，-4], 和 target = 1.
- *
+ * <p>
  * 与 target 最接近的三个数的和为 2. (-1 + 2 + 1 = 2).
+ *
  * @author Wang Guolong
  * @create 2019-04-26 2:56 PM
  */
@@ -39,6 +41,7 @@ public class ThreeSumClosest {
      * 如果此时三数之和A[i]+A[j]+A[k]<target，说明三数之和小了，我们将j后移一格；
      * 反之，若和大于target，则将k前移一格；直到j和k相遇为止。
      * 在这期间，保留与target最近的三数之和。一旦发现有“和等于target的情况”,立即输出即可。
+     *
      * @param nums
      * @param target
      * @return
@@ -46,12 +49,13 @@ public class ThreeSumClosest {
     public int threeSumClosest_better(int[] nums, int target) {
         int distance = Integer.MAX_VALUE;
         int result = 0;
-        //先排序
+        // 先排序
         Arrays.sort(nums);
         for (int p = 0; p < nums.length; p++) {
             int left = p + 1;
             int right = nums.length - 1;
             while (left < right) {
+                // 每次更新最短距离
                 int sum = nums[p] + nums[left] + nums[right];
                 if (distance > Math.abs(sum - target)) {
                     distance = Math.abs(sum - target);
@@ -60,7 +64,7 @@ public class ThreeSumClosest {
                 if (sum == target) {
                     return sum;
                 } else if (sum < target) {
-                    left ++;
+                    left++;
                 } else {
                     right--;
                 }
