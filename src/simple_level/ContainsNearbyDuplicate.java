@@ -4,8 +4,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 《玩转算法面试视频例题》滑动窗口 + 查找表
  * 219. 存在重复元素 II
- * 给定一个整数数组和一个整数?k，判断数组中是否存在两个不同的索引?i?和?j，使得?nums [i] = nums [j]，并且 i 和 j?的差的 绝对值 至多为 k。
+ * 给定一个整数数组和一个整数k，判断数组中是否存在两个不同的索引i和j，使得nums [i] = nums [j]，并且 i 和 j的差的 绝对值 至多为 k。
  *
  * ?
  *
@@ -28,12 +29,14 @@ import java.util.Set;
  */
 public class ContainsNearbyDuplicate {
     /**
+     * 问题转化为在一个k长度的区间里有没有两个元素的值相等
      * 用散列表维护一个 k 大小的滑动窗口
      * @param nums
      * @param k
      * @return
      */
     public boolean containsNearbyDuplicate(int[] nums, int k) {
+        // 存放窗口中的所有数值
         Set<Integer> set = new HashSet<>();
         for (int i = 0; i < nums.length; ++i) {
             // 在散列表中搜索当前元素，如果找到了就返回true
