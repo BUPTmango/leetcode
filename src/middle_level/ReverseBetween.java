@@ -1,6 +1,7 @@
 package middle_level;
 
 import data_structure.linked_list.ListNode;
+import util.LinkedListUtil;
 
 /**
  * 《玩转算法面试视频例题》 链表
@@ -155,5 +156,13 @@ public class ReverseBetween {
         q.next = k;
         head = tmpHead.next;
         return head;
+    }
+
+    public static void main(String[] args) {
+        ListNode head = LinkedListUtil.create(new int[]{1, 2, 3, 4, 5});
+        ReverseBetween rb = new ReverseBetween();
+        LinkedListUtil.print(head);
+        ListNode result = rb.reverseBetween_iterator(head, 2, 4);
+        LinkedListUtil.print(result);
     }
 }
