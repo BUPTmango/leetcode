@@ -8,22 +8,22 @@ import java.util.List;
 /**
  * 501. 二叉搜索树中的众数
  * 给定一个有相同值的二叉搜索树（BST），找出 BST 中的所有众数（出现频率最高的元素）。
- *
+ * <p>
  * 假定 BST 有如下定义：
- *
+ * <p>
  * 结点左子树中所含结点的值小于等于当前结点的值
  * 结点右子树中所含结点的值大于等于当前结点的值
  * 左子树和右子树都是二叉搜索树
  * 例如：
  * 给定 BST [1,null,2,2],
- *
- *    1
- *     \
- *      2
- *     /
- *    2
+ * <p>
+ * 1
+ * \
+ * 2
+ * /
+ * 2
  * 返回[2].
- *
+ * <p>
  * 提示：如果众数超过1个，不需考虑输出顺序
  *
  * @author Wang Guolong
@@ -51,31 +51,38 @@ public class FindMode {
     private int cur;
     private int curTimes;
     private int lastTimes;
+
     public int[] findMode(TreeNode root) {
         modes = new LinkedList<>();
         inOrder(root);
         int[] res = new int[modes.size()];
-        for(int i = 0; i < modes.size(); i++)
+        for (int i = 0; i < modes.size(); i++) {
             res[i] = modes.get(i);
+        }
         return res;
     }
+
     private void inOrder(TreeNode root) {
-        if(root == null)    return;
+        if (root == null) {
+            return;
+        }
         inOrder(root.left);
         // 首次访问，将上一个次数设置为1，因为后面要进行比较
-        if(lastTimes == 0)
+        if (lastTimes == 0) {
             lastTimes = 1;
+        }
         // 遇到新数字将当前次数设置为0，方便后面的++
-        if(root.val != cur)
+        if (root.val != cur) {
             curTimes = 0;
+        }
         cur = root.val;
         curTimes++;
         // 当前次数和上一个次数相同，添加元素
-        if(curTimes == lastTimes)
+        if (curTimes == lastTimes) {
             modes.add(cur);
+        }
         // 当前次数更多，清空list，添加当前元素
-        if(curTimes > lastTimes)
-        {
+        if (curTimes > lastTimes) {
             lastTimes = curTimes;
             modes.clear();
             modes.add(cur);
