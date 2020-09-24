@@ -134,8 +134,9 @@ public class ReverseBetween {
      * @return
      */
     public ListNode reverseBetween(ListNode head, int m, int n) {
-        if (m == n)
+        if (m == n) {
             return head;
+        }
         ListNode tmpHead = new ListNode(-1);
         tmpHead.next = head;
         head = null;
