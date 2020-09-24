@@ -123,4 +123,36 @@ public class ReverseBetween {
         this.recurseAndReverse(head, m, n);
         return head;
     }
+
+
+    /**
+     * Í·²å·¨
+     * author£º³¼¸ç
+     * @param head
+     * @param m
+     * @param n
+     * @return
+     */
+    public ListNode reverseBetween(ListNode head, int m, int n) {
+        if (m == n)
+            return head;
+        ListNode tmpHead = new ListNode(-1);
+        tmpHead.next = head;
+        head = null;
+        ListNode p = tmpHead;
+        for (int i = 1; i < m; i++) {
+            p = p.next;
+        }
+        ListNode q = p.next;
+        ListNode l = q.next, k = null;
+        for (int i = 1; i <= n - m; i++) {
+            k = l.next;
+            l.next = p.next;
+            p.next = l;
+            l = k;
+        }
+        q.next = k;
+        head = tmpHead.next;
+        return head;
+    }
 }
