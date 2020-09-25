@@ -5,6 +5,8 @@ import data_structure.linked_list.MyLinkedList;
 import sun.tools.jstat.Literal;
 
 /**
+ * 《玩转算法面试视频例题》链表 创建虚拟头节点
+ * 21. 合并两个有序链表
  * 将两个有序链表合并为一个新的有序链表并返回。
  *
  * 新链表是通过拼接给定的两个链表的所有节点组成的。
@@ -26,7 +28,7 @@ public class MergeTwoLists {
      * @param l2
      * @return
      */
-    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+    public static ListNode mergeTwoLists_recursive(ListNode l1, ListNode l2) {
         if (l1 == null && l2 == null) {
             return null;
         }
@@ -39,30 +41,28 @@ public class MergeTwoLists {
         ListNode node;
         if (l1.val <= l2.val) {
             node = l1;
-            node.next = mergeTwoLists(l1.next, l2);
+            node.next = mergeTwoLists_recursive(l1.next, l2);
         } else {
             node = l2;
-            node.next = mergeTwoLists(l1, l2.next);
+            node.next = mergeTwoLists_recursive(l1, l2.next);
         }
         return node;
-     }
+    }
 
-    public static void main(String[] args) {
-
-        MyLinkedList obj1 = new MyLinkedList();
-        obj1.addAtTail(1);
-        obj1.addAtTail(2);
-        obj1.addAtTail(4);
-        MyLinkedList.printList(obj1.getHead());
-
-        MyLinkedList obj2 = new MyLinkedList();
-        obj2.addAtTail(1);
-        obj2.addAtTail(3);
-        obj2.addAtTail(4);
-        MyLinkedList.printList(obj2.getHead());
-
-        ListNode node = mergeTwoLists(obj1.getHead(), obj2.getHead());
-
-        MyLinkedList.printList(node);
+    public ListNode mergeTwoLists_iterator(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode head = dummy;
+        while (l1 != null && l2 != null) {
+            if (l1.val <= l2.val) {
+                head.next = l1;
+                l1 = l1.next;
+            } else {
+                head.next = l2;
+                l2 = l2.next;
+            }
+            head = head.next;
+        }
+        head.next = l1 == null ? l2 : l1;
+        return dummy.next;
     }
 }

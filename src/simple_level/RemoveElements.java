@@ -3,6 +3,7 @@ package simple_level;
 import data_structure.linked_list.ListNode;
 
 /**
+ * 《玩转算法面试视频例题》链表 创建虚拟头节点
  * 203. 移除链表元素
  * 删除链表中等于给定值 val 的所有节点。
  *
