@@ -3,6 +3,7 @@ package middle_level;
 import data_structure.linked_list.ListNode;
 
 /**
+ * 《玩转算法面试视频例题》链表 创建虚拟头节点
  * 24. 两两交换链表中的节点
  * 给定一个链表，两两交换其中相邻的节点，并返回交换后的链表。
  *
@@ -46,5 +47,28 @@ public class SwapPairs {
 
         // Now the head is the second node
         return secondNode;
+    }
+
+    public ListNode swapPairs_iterator(ListNode head) {
+
+        ListNode dummy = new ListNode(-1);
+        dummy.next = head;
+        ListNode p = dummy;
+
+        // 当要交换的两个节点存在时进行循环
+        while (p.next != null && p.next.next != null) {
+            ListNode node1 = p.next;
+            ListNode node2 = node1.next;
+            ListNode next = node2.next;
+
+            p.next = node2;
+            node2.next = node1;
+            node1.next = next;
+
+            // 更新p为要交换的前一个节点
+            p = node1;
+        }
+
+        return dummy.next;
     }
 }
