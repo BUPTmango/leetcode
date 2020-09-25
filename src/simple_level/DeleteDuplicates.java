@@ -1,16 +1,17 @@
 package simple_level;
 
 import data_structure.linked_list.ListNode;
-import data_structure.linked_list.MyLinkedList;
+import util.LinkedListUtil;
 
 /**
+ * 《玩转算法面试视频例题》链表
  * 83
  * 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
- *
+ * <p>
  * 示例 1:
  * 输入: 1->1->2
  * 输出: 1->2
- *
+ * <p>
  * 示例 2:
  * 输入: 1->1->2->3->3
  * 输出: 1->2->3
@@ -38,25 +39,22 @@ public class DeleteDuplicates {
 
     public ListNode deleteDuplicates_better(ListNode head) {
         ListNode current = head;
-        while (current != null && current.next != null){
-            if (current.next.val == current.val){
+        while (current != null && current.next != null) {
+            if (current.next.val == current.val) {
                 current.next = current.next.next;
-            }
-            else{
+            } else {
                 current = current.next;
             }
         }
-        //链表的head地址就是链表的地址，返回head即可
+        // 链表的head地址就是链表的地址，返回head即可
         return head;
     }
 
     public static void main(String[] args) {
-        MyLinkedList my = new MyLinkedList();
-        my.addAtTail(1);
-        my.addAtTail(1);
-        my.addAtTail(2);
-        my.addAtTail(3);
-        my.addAtTail(3);
-        MyLinkedList.printList(deleteDuplicates(my.getHead()));
+        DeleteDuplicates duplicates = new DeleteDuplicates();
+        ListNode head = LinkedListUtil.create(new int[]{1, 1, 2, 3, 3});
+        LinkedListUtil.print(head);
+        ListNode result = duplicates.deleteDuplicates_better(head);
+        LinkedListUtil.print(result);
     }
 }
