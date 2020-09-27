@@ -2,6 +2,7 @@ package middle_level.jianzhi_offer;
 
 import data_structure.TreeNode;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,8 +32,8 @@ import java.util.List;
  * @date 2020/7/21 9:21 上午
  */
 public class PathSum {
-    LinkedList<List<Integer>> res = new LinkedList<>();
-    LinkedList<Integer> path = new LinkedList<>();
+    List<List<Integer>> res = new ArrayList<>();
+    List<Integer> path = new ArrayList<>();
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         recur(root, sum);
         return res;
@@ -55,12 +56,12 @@ public class PathSum {
         tar -= root.val;
         // 找到了路径和并且是叶子节点 就不需要继续遍历
         if(tar == 0 && root.left == null && root.right == null) {
-            res.add(new LinkedList(path));
+            res.add(new ArrayList<>(path));
         }
         // 遍历左子树
         recur(root.left, tar);
         // 遍历右子树
         recur(root.right, tar);
-        path.removeLast();
+        path.remove(path.size() - 1);
     }
 }
