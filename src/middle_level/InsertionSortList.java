@@ -31,26 +31,27 @@ import data_structure.linked_list.ListNode;
  */
 public class InsertionSortList {
     public ListNode insertionSortList(ListNode head) {
+        if (head == null) {
+            return null;
+        }
         ListNode dummy = new ListNode(Integer.MIN_VALUE);
         ListNode pre = dummy;
-        ListNode tail = dummy;
         ListNode cur = head;
+
+        // cur表示要插入的元素
         while (cur != null) {
-            if (tail.val < cur.val) {
-                tail.next = cur;
-                tail = cur;
-                cur = cur.next;
-            } else {
-                ListNode tmp = cur.next;
-                tail.next = tmp;
-                while (pre.next != null && pre.next.val < cur.val) {
-                    pre = pre.next;
-                }
-                cur.next = pre.next;
-                pre.next = cur;
-                pre = dummy;
-                cur = tmp;
+            // pre是游动指针 指向要插入位置的前一个元素
+            pre = dummy;
+            while (pre.next != null && pre.next.val < cur.val) {
+                pre = pre.next;
             }
+            // 保存cur的下一个元素 也就是后面部分链表的头节点
+            ListNode next = cur.next;
+            // 把原来的断掉 接上新的
+            cur.next = pre.next;
+            pre.next = cur;
+            // 更新下一个要插入的位置
+            cur = next;
         }
         return dummy.next;
     }
