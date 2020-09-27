@@ -3,6 +3,8 @@ package middle_level;
 import data_structure.linked_list.ListNode;
 
 /**
+ * 《玩转算法面试视频例题》链表 双指针
+ * 19. 删除链表的倒数第N个节点
  * 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
  * 示例：
  *
@@ -57,15 +59,16 @@ public class RemoveNthFromEnd {
         dummy.next = head;
         ListNode first = dummy;
         ListNode second = dummy;
-        // Advances first pointer so that the gap between first and second is n nodes apart
+        // second指向dummy节点 first指向要删除的节点的前一个节点 second要移动 n+1 次
         for (int i = 1; i <= n + 1; i++) {
             first = first.next;
         }
-        // Move first to the end, maintaining the gap
+        // 同时移动 移动后找到要删除的节点位置为second
         while (first != null) {
             first = first.next;
             second = second.next;
         }
+        // 删除节点
         second.next = second.next.next;
         return dummy.next;
     }
