@@ -3,6 +3,7 @@ package simple_level;
 import java.util.Stack;
 
 /**
+ * 《玩转算法面试视频例题》栈
  * 20. 有效的括号
  * 给定一个只包括 '('，')'，'{'，'}'，'['，']'?的字符串，判断字符串是否有效。
  *
@@ -43,15 +44,17 @@ public class IsValid {
             return true;
         Stack<Character> stack=new Stack<>();
         for(char c : s.toCharArray()){
-            if(c=='(')
+            if(c=='(') {
                 stack.push(')');
-            else if(c=='{')
+            } else if(c=='{') {
                 stack.push('}');
-            else if(c=='[')
+            } else if(c=='[') {
                 stack.push(']');
+            }
             // pop出来的和c不相同就够不成有效的括号
-            else if(stack.empty()||c!=stack.pop())
+            else if(stack.empty()||c!=stack.pop()) {
                 return false;
+            }
         }
         if(stack.empty())
             return true;
