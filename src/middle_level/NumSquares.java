@@ -1,10 +1,9 @@
 package middle_level;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
+ * 《玩转算法面试视频例题》队列 图的BFS
  * 279. 完全平方数
  * 给定正整数?n，找到若干个完全平方数（比如?1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
  * <p>
@@ -48,44 +47,44 @@ public class NumSquares {
     }
 
     /**
-     * 广度优先搜索
-     * 首先，我们准备小于给定数字 n 的完全平方数列表（即 square_nums）。
-     * 然后创建 queue 遍历，该变量将保存所有剩余项在每个级别的枚举。
-     * 在主循环中，我们迭代 queue 变量。在每次迭代中，我们检查余数是否是一个完全平方数。
-     * 如果余数不是一个完全平方数，就用其中一个完全平方数减去它，得到一个新余数，然后将新余数添加到 next_queue 中，以进行下一级的迭代。
-     * 一旦遇到一个完全平方数的余数，我们就会跳出循环，这也意味着我们找到了解。
+     * 广度优先搜索 BFS
+     * 整个问题转化为图论问题
+     * 从n到0 每个数字表示一个节点
+     * 如果两个数字x和y相差一个完全平方数 则连一条边
+     * 这样我们得到了一个无权图
+     * 原问题转化成 求这个无权图中从n到0的最短路径
+     *
+     * 注意处理冗余问题！！！
+     *
      * @param n
      * @return
      */
     public int numSquares_BFS(int n) {
 
-        // 将可能的平方数放到list中
-        ArrayList<Integer> square_nums = new ArrayList<>();
-        for (int i = 1; i * i <= n; ++i) {
-            square_nums.add(i * i);
-        }
-
-        Set<Integer> queue = new HashSet<>();
+        Queue<Integer> queue = new LinkedList<>();
+        // 解决冗余问题
+        boolean[] visited = new boolean[n + 1];
+        int step = 0;
         queue.add(n);
-
-        int level = 0;
-        while (queue.size() > 0) {
-            level += 1;
-            Set<Integer> next_queue = new HashSet<Integer>();
-
-            for (Integer remainder : queue) {
-                for (Integer square : square_nums) {
-                    if (remainder.equals(square)) {
-                        return level;
-                    } else if (remainder < square) {
-                        break;
+        while (!queue.isEmpty()) {
+            step++;
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                int num = queue.remove();
+                // num - j * j 这里会产生冗余 不像是树只有一个父节点 图有多种方式到达一个节点
+                for (int j = 1; num - j * j >= 0; j++) {
+                    int remain = num - j * j;
+                    if (remain == 0) {
+                        return step;
                     } else {
-                        next_queue.add(remainder - square);
+                        if (!visited[remain]) {
+                            queue.add(remain);
+                            visited[remain] = true;
+                        }
                     }
                 }
             }
-            queue = next_queue;
         }
-        return level;
+        return 0;
     }
 }
