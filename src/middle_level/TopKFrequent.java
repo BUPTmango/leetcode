@@ -3,10 +3,10 @@ package middle_level;
 import java.util.*;
 
 /**
+ * 《玩转算法面试视频例题》优先队列
  * 347. 前 K 个高频元素
  * 给定一个非空的整数数组，返回其中出现频率前?k?高的元素。
  *
- * ?
  *
  * 示例 1:
  *
@@ -42,7 +42,7 @@ public class TopKFrequent {
         }
 
         // 遍历输出
-        List<Integer> top_k = new LinkedList();
+        List<Integer> top_k = new ArrayList<>();
         while (!heap.isEmpty()) {
             top_k.add(heap.poll());
         }
