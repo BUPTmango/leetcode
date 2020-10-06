@@ -10,10 +10,10 @@ import java.util.List;
  * 113. 路径总和 II
  * 给定一个二叉树和一个目标和，找到所有从根节点到叶子节点路径总和等于给定目标和的路径。
  * <p>
- * 说明:?叶子节点是指没有子节点的节点。
+ * 说明:叶子节点是指没有子节点的节点。
  * <p>
  * 示例:
- * 给定如下二叉树，以及目标和?sum = 22，
+ * 给定如下二叉树，以及目标和sum = 22，
  * <p>
  * 5
  * / \
@@ -36,6 +36,7 @@ import java.util.List;
 public class PathSum {
     List<List<Integer>> res = new ArrayList<>();
     List<Integer> path = new ArrayList<>();
+
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         recur(root, sum);
         return res;
@@ -47,17 +48,18 @@ public class PathSum {
      * 路径记录： 当 ① root 为叶节点 且 ② 路径和等于目标值 ，则将此路径 path 加入 res 。
      * 先序遍历： 递归左 / 右子节点。
      * 路径恢复： 向上回溯前，需要将当前节点从路径 path 中删除，即执行 path.pop() 。
+     *
      * @param root
      * @param tar
      */
-    void recur(TreeNode root, int tar) {
-        if(root == null) {
+    private void recur(TreeNode root, int tar) {
+        if (root == null) {
             return;
         }
         path.add(root.val);
         tar -= root.val;
         // 找到了路径和并且是叶子节点 就不需要继续遍历
-        if(tar == 0 && root.left == null && root.right == null) {
+        if (tar == 0 && root.left == null && root.right == null) {
             res.add(new ArrayList<>(path));
         }
         // 遍历左子树
