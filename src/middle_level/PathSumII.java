@@ -33,7 +33,7 @@ import java.util.List;
  * @version 1.0
  * @date 2020/10/6 8:04 обнГ
  */
-public class PathSum {
+public class PathSumII {
     List<List<Integer>> res = new ArrayList<>();
     List<Integer> path = new ArrayList<>();
 
