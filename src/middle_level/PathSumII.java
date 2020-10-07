@@ -66,6 +66,10 @@ public class PathSumII {
         recur(root.left, tar);
         // 遍历右子树
         recur(root.right, tar);
+        // 注意！！！！！！
+        // 必须进行回溯，因为path是共享的变量
+        // 要想要不回溯的话 要每次在path add之前新建一个path的复制 之后用参数传入到每一步之中，这样才OK
+        // 对比257 257不用进行回溯 因为每次string都是参数传入的 并且不是引用传递
         path.remove(path.size() - 1);
     }
 }
