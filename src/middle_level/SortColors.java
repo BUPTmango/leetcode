@@ -40,6 +40,7 @@ public class SortColors {
                 // ==0 zero+1之后交换位置 保持数组接口 前面部分为0
             } else {
                 assert nums[i] == 0;
+                // 注意！！！！ 因为<1的部分在i前面，所以交换之后i同时要++， for循环上没有执行++操作，要在逻辑中进行++操作
                 swap(nums, ++zero, i++);
             }
         }
