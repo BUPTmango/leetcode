@@ -3,6 +3,7 @@ package middle_level;
 import data_structure.TreeNode;
 
 /**
+ * 《玩转算法面试视频例题》二分搜索树
  * 98. 验证二叉搜索树
  * 给定一个二叉树，判断其是否是一个有效的二叉搜索树。
  *
@@ -67,6 +68,9 @@ public class IsValidBST {
         return helper(root, null, null);
     }
 
+    /**
+     * 如果使用int的最小值还是不够小 传入正好等于int的最小值的节点的时候会有问题
+     */
     long pre = Long.MIN_VALUE;
     /**
      * 中序遍历时，判断当前节点是否大于中序遍历的前一个节点，

@@ -3,6 +3,8 @@ package simple_level;
 import data_structure.TreeNode;
 
 /**
+ * 《玩转算法面试视频例题》二分搜索树
+ * 108. 将有序数组转换为二叉搜索树
  * 将一个按照升序排列的有序数组，转换为一棵高度平衡二叉搜索树。
  * 本题中，一个高度平衡二叉树是指一个二叉树每个节点 的左右两个子树的高度差的绝对值不超过 1。
  *
@@ -34,6 +36,7 @@ public class SortedArrayToBST {
         return sortedArrayToBST(nums, 0, nums.length - 1);
     }
     private TreeNode sortedArrayToBST(int arr[], int start, int end) {
+        // 注意！！！！ 一定要设置递归终止条件 要进行退出操作
         if (start > end) {
             return null;
         }
