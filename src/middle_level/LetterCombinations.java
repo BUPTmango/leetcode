@@ -3,10 +3,12 @@ package middle_level;
 import java.util.*;
 
 /**
+ * 《玩转算法面试视频例题》 树形问题
+ * 17. 电话号码的字母组合
  * 给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。
  * 给出数字到字母的映射如下（与电话按键相同）。注意 1 不对应任何字母。
  * 示例:
- *
+ * <p>
  * 输入："23"
  * 输出：["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
  * 说明:
@@ -46,6 +48,31 @@ public class LetterCombinations {
             }
             result = tmpList;
         }
-    return result;
+        return result;
+    }
+
+    private String[] letterMap = {" ", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    private List<String> res = new ArrayList<>();
+
+    private void findCombination(String digits, int index, String s) {
+        if (index == digits.length()) {
+            res.add(s);
+            return;
+        }
+
+        char c = digits.charAt(index);
+        String letters = letterMap[c - '0'];
+        for (char letter : letters.toCharArray()) {
+            // 对下一个字母进行递归
+            findCombination(digits, index + 1, s + letter);
+        }
+    }
+
+    public List<String> letterCombinations_recursive(String digits) {
+        if (digits == null || digits.length() == 0) {
+            return res;
+        }
+        findCombination(digits, 0, "");
+        return res;
     }
 }
