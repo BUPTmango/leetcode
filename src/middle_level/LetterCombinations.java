@@ -68,6 +68,11 @@ public class LetterCombinations {
         }
     }
 
+    /**
+     * 通过回溯遍历所有情况 在合理的条件下进行剪枝操作
+     * @param digits
+     * @return
+     */
     public List<String> letterCombinations_recursive(String digits) {
         if (digits == null || digits.length() == 0) {
             return res;

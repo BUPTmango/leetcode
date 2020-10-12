@@ -73,11 +73,13 @@ public class RestoreIpAddresses {
                 }
                 ans.add(ipAddr.toString());
             }
+            // 注意！！！ 终止条件加上return
             return;
         }
 
         // 如果还没有找到 4 段 IP 地址就已经遍历完了字符串，那么提前回溯
         if (segStart == s.length()) {
+            // 注意！！！ 终止条件加上return
             return;
         }
 
@@ -92,6 +94,7 @@ public class RestoreIpAddresses {
         for (int segEnd = segStart; segEnd < s.length(); ++segEnd) {
             addr = addr * 10 + (s.charAt(segEnd) - '0');
             if (addr > 0 && addr <= 0xFF) {
+                // 注意！！！ 记得先保存，再回溯
                 segments[segId] = addr;
                 dfs(s, segId + 1, segEnd + 1);
             } else {
