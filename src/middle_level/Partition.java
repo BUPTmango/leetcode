@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 《玩转算法面试视频例题》 树形问题 回溯算法
  * 131. 分割回文串
  * 给定一个字符串 s，将 s 分割成一些子串，使每个子串都是回文串。
  *
@@ -23,39 +24,44 @@ import java.util.List;
  * @date 2020/4/29 1:47 下午
  */
 public class Partition {
+    private List<List<String>> ans = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
+
     public List<List<String>> partition(String s) {
-        List<List<String>> res = new ArrayList<>();
-        backtrack(res, s,  new ArrayList<String>());
-        return res;
+        if (s == null || s.length() == 0) {
+            return ans;
+        }
+        findPartition(s, 0);
+        return ans;
     }
-    private void backtrack(List<List<String>> res, String s, ArrayList<String> tmp) {
-        // s表示待分割的字符串 长度为0代表已经分割完一种情况
-        if (s == null || s.length() == 0) res.add(new ArrayList<>(tmp));
-        // 从头寻找第一个分割点
-        for (int i = 1; i <= s.length(); i++) {
-            if (isPalidrome(s.substring(0, i))) {
-                tmp.add(s.substring(0, i));
-                // 继续回溯剩下的字符串
-                backtrack(res, s.substring(i, s.length()), tmp);
-                // 回溯后删除最后一种情况
-                tmp.remove(tmp.size() - 1);
+
+    private void findPartition(String s, int index) {
+        // 遍历到最后了 添加结果
+        if (index == s.length()) {
+            ans.add(new ArrayList<>(list));
+        }
+
+        // 遍历
+        for (int endIndex = index; endIndex < s.length(); endIndex++) {
+            String subString = s.substring(index, endIndex + 1);
+            if (isPalindrome(subString)) {
+                list.add(subString);
+                findPartition(s, endIndex + 1);
+                list.remove(list.size() - 1);
             }
         }
     }
-    /**
-     * 双指针验证是不是回文串
-     * @param sb
-     * @return
-     */
-    private  boolean isPalidrome(String sb) {
+
+    private boolean isPalindrome(String s) {
         int left = 0;
-        int right = sb.length() - 1;
+        int right = s.length() - 1;
         while (left < right) {
-            if (sb.charAt(left) != sb.charAt(right)) return false;
+            if (s.charAt(left) != s.charAt(right)) {
+                return false;
+            }
             left++;
             right--;
         }
         return true;
-
     }
 }
