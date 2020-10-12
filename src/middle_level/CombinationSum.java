@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 《玩转算法面试视频例题》 树形问题 回溯算法 组合问题
  * 39. 组合总和
  * 给定一个无重复元素的数组?candidates?和一个目标数?target?，找出?candidates?中所有可以使数字和为?target?的组合。
  *
@@ -60,7 +61,7 @@ public class CombinationSum {
         } else {
             for (int i = start; i < candidates.length; i++) {
                 list.add(candidates[i]);
-                // 因为每个数字都可以使用无数次，所以递归还可以从当前元素开始
+                // 注意！！！ 因为每个数字都可以使用无数次，所以递归还可以从当前元素开始
                 process(i, candidates, target - candidates[i], list);
                 // 进行回溯 要删除最后一个节点
                 list.remove(list.size() - 1);
