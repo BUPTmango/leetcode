@@ -2,18 +2,18 @@ package weekly_contest.week_210;
 
 /**
  * 1616. 分割两个字符串得到回文串
- * 给你两个字符串?a 和?b?，它们长度相同。请你选择一个下标，将两个字符串都在?相同的下标 分割开。由?a?可以得到两个字符串：?aprefix?和?asuffix?，满足?a = aprefix + asuffix?，同理，由?b 可以得到两个字符串?bprefix 和?bsuffix?，满足?b = bprefix + bsuffix?。请你判断?aprefix + bsuffix 或者?bprefix + asuffix?能否构成回文串。
- *
- * 当你将一个字符串?s?分割成?sprefix 和?ssuffix?时，?ssuffix 或者?sprefix 可以为空。比方说，?s = "abc"?那么?"" + "abc"?，?"a" + "bc"?，?"ab" + "c"?和?"abc" + ""?都是合法分割。
- *
- * 如果 能构成回文字符串 ，那么请返回?true，否则返回?false?。
- *
- * 请注意，?x + y?表示连接字符串?x 和?y?。
- *
- * ?
- *
+ * 给你两个字符串a 和b，它们长度相同。请你选择一个下标，将两个字符串都在相同的下标 分割开。由a可以得到两个字符串：aprefix和asuffix，满足a = aprefix + asuffix，同理，由b 可以得到两个字符串bprefix 和bsuffix，满足b = bprefix + bsuffix。请你判断aprefix + bsuffix 或者bprefix + asuffix能否构成回文串。
+ * <p>
+ * 当你将一个字符串s分割成sprefix 和ssuffix时，ssuffix 或者sprefix 可以为空。比方说，s = "abc"那么"" + "abc"，"a" + "bc"，"ab" + "c"和"abc" + ""都是合法分割。
+ * <p>
+ * 如果 能构成回文字符串 ，那么请返回true，否则返回false。
+ * <p>
+ * 请注意，x + y表示连接字符串x 和y。
+ * <p>
+ * 
+ * <p>
  * 示例 1：
- *
+ * <p>
  * 输入：a = "x", b = "y"
  * 输出：true
  * 解释：如果 a 或者 b 是回文串，那么答案一定为 true ，因为你可以如下分割：
@@ -21,7 +21,7 @@ package weekly_contest.week_210;
  * bprefix = "", bsuffix = "y"
  * 那么 aprefix + bsuffix = "" + "y" = "y" 是回文串。
  * 示例 2：
- *
+ * <p>
  * 输入：a = "ulacfd", b = "jizalu"
  * 输出：true
  * 解释：在下标为 3 处分割：
@@ -35,29 +35,34 @@ package weekly_contest.week_210;
  */
 public class CheckPalindromeFormation {
     public boolean checkPalindromeFormation(String a, String b) {
-        int size = a.length();
-        // 遍历切割位置
-        for (int i = 0; i < size; i++) {
-            String prefixA = a.substring(0, i);
-            String prefixB = b.substring(0, i);
-            String suffixA = a.substring(i, size);
-            String suffixB = b.substring(i, size);
-
-            if (isPalindrome(new StringBuffer(prefixA + suffixB))) {
-                return true;
-            }
-            if (isPalindrome(new StringBuffer(prefixB + suffixA))) {
-                return true;
-            }
-        }
-        return false;
+        return check(a, b) || check(b, a);
     }
 
-    public boolean isPalindrome(StringBuffer stringBuffer) {
+    private boolean check(String a, String b) {
+        char[] stra = a.toCharArray();
+        char[] strb = b.toCharArray();
         int left = 0;
-        int right = stringBuffer.length() - 1;
+        int length = stra.length;
+        while (left <= length / 2) {
+            if (stra[left] == strb[length - 1 - left]) {
+                left++;
+            } else {
+                break;
+            }
+        }
+        // 如果超过一半都是相等的，直接返回true
+        if (left >= length / 2) {
+            return true;
+        }
+        // 否则判断中间未遍历的部分是否是回文
+        return isPalindrome(a.substring(left, length - left)) || isPalindrome(b.substring(left, length - left));
+    }
+
+    private boolean isPalindrome(String s) {
+        int left = 0;
+        int right = s.length() - 1;
         while (left < right) {
-            if (stringBuffer.charAt(left) != stringBuffer.charAt(right)) {
+            if (s.charAt(left) != s.charAt(right)) {
                 return false;
             }
             left++;

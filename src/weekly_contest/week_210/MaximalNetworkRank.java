@@ -32,6 +32,40 @@ package weekly_contest.week_210;
  */
 public class MaximalNetworkRank {
     public int maximalNetworkRank(int n, int[][] roads) {
-        return 0;
+        // 计算每个点的度数
+        int[] degree = new int[n];
+        for (int[] road : roads) {
+            degree[road[0]]++;
+            degree[road[1]]++;
+        }
+
+        int max = 0;
+        // 遍历找到最大值
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                int deg = degree[i] + degree[j];
+                if (include(roads, i, j)) {
+                    deg--;
+                }
+                max = Math.max(max, deg);
+            }
+        }
+        return max;
+    }
+
+    /**
+     * 返回两个节点有没有边直接连接
+     * @return
+     */
+    private boolean include(int[][] roads, int i, int j) {
+        for (int[] road : roads) {
+            if (road[0] == i && road[1] == j) {
+                return true;
+            }
+            if (road[0] == j && road[1] == i) {
+                return true;
+            }
+        }
+        return false;
     }
 }
