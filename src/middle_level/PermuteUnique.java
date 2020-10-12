@@ -50,6 +50,7 @@ public class PermuteUnique {
         // 只要没访问过就遍历 递归逻辑
         for (int i = 0; i < nums.length; i++) {
             // 注意！！！！ 区别！！ 如果选择的元素是刚刚上次被撤销的回溯回来的 跳过
+            // 必须同时满足两个条件才行
             if (i > 0 && nums[i - 1] == nums[i] && visited[i - 1] == 0) {
                 continue;
             }
