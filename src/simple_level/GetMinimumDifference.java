@@ -51,10 +51,14 @@ public class GetMinimumDifference {
         return minDif;
     }
     private void inOrder(TreeNode root) {
-        if(root == null)    return;
+        if(root == null) {
+            return;
+        }
         inOrder(root.left);
-        if(pre != -1)
+        // ==-1表示是第一个元素 直接赋值就行 不用比较
+        if(pre != -1) {
             minDif = Math.min(minDif, root.val - pre);
+        }
         pre = root.val;
         inOrder(root.right);
     }
