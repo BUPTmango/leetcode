@@ -43,6 +43,7 @@ public class ConnectII {
      * @return
      */
     public Node connect(Node root) {
+        // 因为左右子树高度不一定一致 必须左右同时为null才返回
         if (root == null || (root.right == null && root.left == null)) {
             return root;
         }
@@ -68,7 +69,7 @@ public class ConnectII {
     }
 
     /**
-     * 一路向右找到有子节点的根节点
+     * 一路向右找到不为null的节点
      */
     private static Node getNextNoNullChild(Node root) {
         while (root.next != null) {
