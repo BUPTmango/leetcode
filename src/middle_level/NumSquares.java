@@ -3,7 +3,7 @@ package middle_level;
 import java.util.*;
 
 /**
- * 《玩转算法面试视频例题》队列 图的BFS
+ * 《玩转算法面试视频例题》队列 图的BFS 或者 动态规划
  * 279. 完全平方数
  * 给定正整数?n，找到若干个完全平方数（比如?1, 4, 9, 16, ...）使得它们的和等于 n。你需要让组成和的完全平方数的个数最少。
  * <p>
@@ -36,11 +36,14 @@ public class NumSquares {
      * @return
      */
     public int numSquares(int n) {
-        int[] dp = new int[n + 1]; // 默认初始化值都为0
+        // 默认初始化值都为0
+        int[] dp = new int[n + 1];
         for (int i = 1; i <= n; i++) {
-            dp[i] = i; // 最坏的情况就是每次+1
+            // 先更新为最坏的情况 最坏的情况就是每次+1
+            dp[i] = i;
             for (int j = 1; i - j * j >= 0; j++) {
-                dp[i] = Math.min(dp[i], dp[i - j * j] + 1); // 动态转移方程
+                // 动态转移方程
+                dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
             }
         }
         return dp[n];
