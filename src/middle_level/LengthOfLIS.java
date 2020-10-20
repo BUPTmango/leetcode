@@ -1,6 +1,9 @@
 package middle_level;
 
+import java.util.Arrays;
+
 /**
+ * 《玩转算法面试视频例题》动态规划 最长上升子序列
  * 300. 最长上升子序列
  * 给定一个无序的整数数组，找到其中最长上升子序列的长度。
  *
@@ -19,30 +22,30 @@ package middle_level;
  * @date 2020/4/6 1:34 下午
  */
 public class LengthOfLIS {
-    /**
-     * 考虑往 dp[0 \ldots i-1]dp[0…i?1] 中最长的上升子序列后面再加一个 \textit{nums}[i]nums[i]
-     * 如果能从 dp[j]dp[j] 这个状态转移过来，那么 \textit{nums}[i]nums[i] 必然要大于 \textit{nums}[j]nums[j]，才能将 \textit{nums}[i]nums[i] 放在 \textit{nums}[j]nums[j] 后面以形成更长的上升子序列。
-     *
-     * @param nums
-     * @return
-     */
+
     public int lengthOfLIS(int[] nums) {
         if (nums.length == 0) {
             return 0;
         }
+        // dp[i]表示以nums[i]为结尾的最长上升子序列的长度
         int[] dp = new int[nums.length];
-        dp[0] = 1;
-        int maxans = 1;
-        for (int i = 1; i < dp.length; i++) {
-            int maxval = 0;
+        Arrays.fill(dp, 1);
+
+        for (int i = 1; i < nums.length; i++) {
             for (int j = 0; j < i; j++) {
-                if (nums[i] > nums[j]) {
-                    maxval = Math.max(maxval, dp[j]);
+                // 如果前面的数比当前的小 就考虑更新当前个数为小的数的个数加一
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[i], 1 + dp[j]);
                 }
             }
-            dp[i] = maxval + 1;
-            maxans = Math.max(maxans, dp[i]);
         }
-        return maxans;
+
+        int res = 1;
+        // 查找dp中以所有位置结尾的里面最长的序列
+        for (int i = 0; i < nums.length; i++) {
+            res = Math.max(res, dp[i]);
+        }
+
+        return res;
     }
 }
