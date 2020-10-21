@@ -38,6 +38,11 @@ import java.util.Arrays;
  * @date 2020/10/20 9:06 下午
  */
 public class EraseOverlapIntervals {
+    /**
+     * 最长上升子序列
+     * @param intervals
+     * @return
+     */
     public int eraseOverlapIntervals(int[][] intervals) {
         if (intervals == null || intervals.length == 0) {
             return 0;
@@ -67,6 +72,38 @@ public class EraseOverlapIntervals {
         int res = 0;
         for (int i = 0; i < dp.length; i++) {
             res = Math.max(res, dp[i]);
+        }
+        return intervals.length - res;
+    }
+
+    /**
+     * 贪心算法
+     * 按照区间的结尾排序
+     * 每次选择结尾最早的，且和前一个区间不重叠的区间
+     *
+     * @param intervals
+     * @return
+     */
+    public int eraseOverlapIntervals_greedy(int[][] intervals) {
+        if (intervals == null || intervals.length == 0) {
+            return 0;
+        }
+        // 按照区间的结尾排序
+        Arrays.sort(intervals, ((o1, o2) -> {
+            if (o1[1] == o2[1]) {
+                return o1[0] - o2[0];
+            } else {
+                return o1[1] - o2[1];
+            }
+        }));
+
+        int res = 1;
+        int pre = 0;
+        for (int i = 1; i < intervals.length; i++) {
+            if (intervals[i][0] >= intervals[pre][1]) {
+                res++;
+                pre = i;
+            }
         }
         return intervals.length - res;
     }
