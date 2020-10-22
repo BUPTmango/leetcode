@@ -49,15 +49,18 @@ public class MaxProfit {
      * @return
      */
     public int maxProfit_easy(int[] prices) {
-        if (prices == null || prices.length == 0 || prices.length == 1) {
-            return 0;
-        }
-        int min = Integer.MAX_VALUE;
-        int max = 0;
+        int minprice = Integer.MAX_VALUE;
+        int maxprofit = 0;
+        // 只需遍历数组一边
         for (int i = 0; i < prices.length; i++) {
-            min = Math.min(min, prices[i]);
-            max = Math.max(max, prices[i] - min);
+            if (prices[i] < minprice) {
+                // 记录历史最低点
+                minprice = prices[i];
+            } else if (prices[i] - minprice > maxprofit) {
+                // 考虑今天能赚多少钱
+                maxprofit = prices[i] - minprice;
+            }
         }
-        return max;
+        return maxprofit;
     }
 }
