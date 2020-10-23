@@ -59,7 +59,7 @@ public class GetDecimalValue {
         while (cur != null) {
             ListNode next = cur.next;
             cur.next = pre;
-            // 更新索引
+            // 更新索引 注意！！！！！ 二者索引的更新顺序
             pre = cur;
             cur = next;
         }
