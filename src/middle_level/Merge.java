@@ -2,6 +2,7 @@ package middle_level;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -52,5 +53,30 @@ public class Merge {
             }
         }
         return list.toArray(new int[list.size()][]);
+    }
+
+    /**
+     * 按照起点排序 之后进行合并
+     * @param intervals
+     * @return
+     */
+    public int[][] merge_another(int[][] intervals) {
+        if (intervals == null || intervals.length <= 1) {
+            return intervals;
+        }
+        // 按照每个区间的起点排序c
+        Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
+        List<int[]> res = new ArrayList<>();
+        res.add(intervals[0]);
+        for (int i = 1; i < intervals.length; i++) {
+            int[] curr = intervals[i];
+            int[] last = res.get(res.size() - 1);
+            if (curr[0] <= last[1]) {
+                last[1] = Math.max(curr[1], last[1]);
+            } else {
+                res.add(curr);
+            }
+        }
+        return res.toArray(new int[res.size()][]);
     }
 }

@@ -112,7 +112,8 @@ public class MinimumEffortPath {
                 }
             }
         }
-        visited[i][j] = false;
+        // 注意！！！ 这里不需要回溯 
+        // visited[i][j] = false;
         return false;
     }
 

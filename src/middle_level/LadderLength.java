@@ -45,12 +45,22 @@ import java.util.*;
  * @date 2020/5/13 11:10 上午
  */
 public class LadderLength {
+    /**
+     * 双向BFS
+     *
+     * @param beginWord
+     * @param endWord
+     * @param wordList
+     * @return
+     */
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
         // 将wordList转换成wordSet
         Set<String> wordSet = new HashSet<>(wordList.size());
         wordSet.addAll(wordList);
         // 已经存在就不需要转换
-        if (!wordSet.contains(endWord)) return 0;
+        if (!wordSet.contains(endWord)) {
+            return 0;
+        }
         Set<String> s1 = new HashSet<>();
         Set<String> s2 = new HashSet<>();
         s1.add(beginWord);
