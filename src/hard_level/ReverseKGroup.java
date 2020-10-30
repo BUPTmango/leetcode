@@ -3,6 +3,7 @@ package hard_level;
 import data_structure.linked_list.ListNode;
 
 /**
+ * 反转链表
  * 《玩转算法面试视频例题》链表 创建虚拟头节点
  * 25. K 个一组翻转链表
  * 给你一个链表，每k个节点一组进行翻转，请你返回翻转后的链表。
@@ -27,44 +28,44 @@ public class ReverseKGroup {
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        ListNode pre = dummy;
+        // 前序和后继节点
+        ListNode prev = dummy, successor = null;
+        // 反转区间的端点
+        ListNode start = head, end = head;
 
-        while (head != null) {
-            ListNode tail = pre;
-            // 查看剩余部分长度是否大于等于 k
-            for (int i = 0; i < k; ++i) {
-                tail = tail.next;
-                // 剩余部分链表长度不足k 直接返回 无需再反转
-                if (tail == null) {
-                    return dummy.next;
-                }
+        while (end != null) {
+            // 循环k次，确定待反转区间
+            for (int i = 1; i < k && end != null; i++) {
+                end = end.next;
             }
-            ListNode nex = tail.next;
-            // 反转head到tail的链表
-            ListNode[] reverse = myReverse(head, tail);
-            head = reverse[0];
-            tail = reverse[1];
-            // 把子链表重新接回原链表
-            pre.next = head;
-            tail.next = nex;
-            // 更新下一步需要连接的位置
-            pre = tail;
-            head = nex;
+            // 如果end节点为空说明不足k个，直接返回
+            if (end == null) {
+                break;
+            }
+            // 找到后继节点
+            successor = end.next;
+            // 重要！！ 将待反转链表的最后一个节点和后续链表断开
+            end.next = null;
+            // 重新连接反转之后的区间链表
+            prev.next = reverseList(start);
+            start.next = successor;
+            // 对变量进行重新赋值 方便进行下一次循环
+            prev = start;
+            start = successor;
+            end = successor;
         }
 
         return dummy.next;
     }
 
-    public ListNode[] myReverse(ListNode head, ListNode tail) {
-        ListNode prev = tail.next;
-        ListNode p = head;
-        while (prev != tail) {
-            ListNode nex = p.next;
-            p.next = prev;
-            // 更新位置
-            prev = p;
-            p = nex;
+    private ListNode reverseList(ListNode head) {
+        ListNode cur = head, pre = null;
+        while (cur != null) {
+            ListNode next = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = next;
         }
-        return new ListNode[]{tail, head};
+        return pre;
     }
 }
