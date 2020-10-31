@@ -6,23 +6,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 构造二叉树
  * 105. 从前序与中序遍历序列构造二叉树
  * 根据一棵树的前序遍历与中序遍历构造二叉树。
- *
+ * <p>
  * 注意:
  * 你可以假设树中没有重复的元素。
- *
+ * <p>
  * 例如，给出
- *
+ * <p>
  * 前序遍历 preorder =?[3,9,20,15,7]
  * 中序遍历 inorder = [9,3,15,20,7]
  * 返回如下的二叉树：
- *
- *     3
- *    / \
- *   9  20
- *     /  \
- *    15   7
+ * <p>
+ * 3
+ * / \
+ * 9  20
+ * /  \
+ * 15   7
  *
  * @author Wang Guolong
  * @version 1.0
@@ -57,7 +58,7 @@ public class BuildTreePreAndIn {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int n = preorder.length;
         // 构造哈希映射，帮助我们快速定位根节点
-        indexMap = new HashMap<Integer, Integer>();
+        indexMap = new HashMap<>();
         for (int i = 0; i < n; i++) {
             indexMap.put(inorder[i], i);
         }
