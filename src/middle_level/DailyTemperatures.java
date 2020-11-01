@@ -3,6 +3,7 @@ package middle_level;
 import java.util.Stack;
 
 /**
+ * 单调栈
  * 739. 每日温度
  * 根据每日 气温 列表，请重新生成一个列表，对应位置的输出是需要再等待多久温度才会升高超过该日的天数。如果之后都不会升高，请在该位置用?0 来代替。
  *
@@ -24,15 +25,17 @@ public class DailyTemperatures {
      * @return
      */
     public int[] dailyTemperatures(int[] T) {
-        int[] ans = new int[T.length];
+        int[] res = new int[T.length];
         Stack<Integer> stack = new Stack();
-        // 反向遍历
-        for (int i = T.length - 1; i >= 0; --i) {
-            // 有更大的就把后面比他小的全部pop掉
-            while (!stack.isEmpty() && T[i] >= T[stack.peek()]) stack.pop();
-            ans[i] = stack.isEmpty() ? 0 : stack.peek() - i;
+        for (int i = T.length - 1; i >= 0; i--) {
+            // 取索引对应的元素进行比较
+            while (!stack.isEmpty() && T[stack.peek()] <= T[i]) {
+                stack.pop();
+            }
+            res[i] = stack.isEmpty() ? 0 : (stack.peek() - i);
+            // 将索引入栈 而不是元素
             stack.push(i);
         }
-        return ans;
+        return res;
     }
 }
