@@ -1,6 +1,6 @@
 package simple_level;
 
-/**
+/** 双指针 原地修改
  * 《玩转算法面试视频例题》
  * 26. 删除排序数组中的重复项
  * 给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
@@ -40,5 +40,27 @@ public class RemoveDuplicates {
             }
         }
         return index;
+    }
+
+    /**
+     * 快慢指针
+     * 快指针在前面探路，找到一个不重复的元素就告诉慢指针前进一步
+     * @param nums
+     * @return
+     */
+    public int removeDuplicates_another(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        int slow = 0, fast = 0;
+        while (fast < nums.length) {
+            if (nums[fast] != nums[slow]) {
+                slow++;
+                // 维护nums[0..slow]无重复
+                nums[slow] = nums[fast];
+            }
+            fast++;
+        }
+        return slow + 1;
     }
 }

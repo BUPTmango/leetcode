@@ -4,6 +4,7 @@ import data_structure.linked_list.ListNode;
 import util.LinkedListUtil;
 
 /**
+ * 双指针 原地修改
  * 《玩转算法面试视频例题》链表
  * 83
  * 给定一个排序链表，删除所有重复的元素，使得每个元素只出现一次。
@@ -47,6 +48,29 @@ public class DeleteDuplicates {
             }
         }
         // 链表的head地址就是链表的地址，返回head即可
+        return head;
+    }
+
+    /**
+     * 快慢指针
+     * @param head
+     * @return
+     */
+    public ListNode deleteDuplicates_another(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        ListNode fast = head, slow = head;
+        while (fast != null) {
+            if (fast.val != slow.val) {
+                // 找到不同 连接
+                slow.next = fast;
+                slow = slow.next;
+            }
+            fast = fast.next;
+        }
+        // 断开与后面重复元素的连接
+        slow.next = null;
         return head;
     }
 
