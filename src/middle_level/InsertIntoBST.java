@@ -3,6 +3,7 @@ package middle_level;
 import data_structure.TreeNode;
 
 /**
+ * 二分搜索树 判断BST的合法性、增、删、查
  * 701. 二叉搜索树中的插入操作
  * 给定二叉搜索树（BST）的根节点和要插入树中的值，将值插入二叉搜索树。 返回插入后二叉搜索树的根节点。 输入数据保证，新值和原始二叉搜索树中的任意节点值都不同。
  * <p>
@@ -51,49 +52,23 @@ import data_structure.TreeNode;
  * @date 2020/9/30 8:43 上午
  */
 public class InsertIntoBST {
-    public TreeNode insertIntoBST(TreeNode root, int val) {
-        if (root == null) {
-            return new TreeNode(val);
-        }
-        TreeNode pos = root;
-        while (pos != null) {
-            if (val < pos.val) {
-                if (pos.left == null) {
-                    pos.left = new TreeNode(val);
-                    // 注意要break
-                    break;
-                } else {
-                    pos = pos.left;
-                }
-            } else {
-                if (pos.right == null) {
-                    pos.right = new TreeNode(val);
-                    // 注意要break
-                    break;
-                } else {
-                    pos = pos.right;
-                }
-            }
-        }
-        return root;
-    }
-
 
     /**
-     * 递归
+     * 递归 推荐
      * @param root
      * @param val
      * @return
      */
-    public TreeNode insertIntoBST_recursive(TreeNode root, int val) {
+    public TreeNode insertIntoBST(TreeNode root, int val) {
+        // 找到空位置加入新节点
         if (root == null) {
             return new TreeNode(val);
         }
         // 根据BST的性质找到需要插入的点
         if (root.val > val) {
-            root.left = insertIntoBST_recursive(root.left, val);
+            root.left = insertIntoBST(root.left, val);
         } else {
-            root.right = insertIntoBST_recursive(root.right, val);
+            root.right = insertIntoBST(root.right, val);
         }
         return root;
     }

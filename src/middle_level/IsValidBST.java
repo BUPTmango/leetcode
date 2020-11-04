@@ -3,6 +3,7 @@ package middle_level;
 import data_structure.TreeNode;
 
 /**
+ * 二分搜索树 判断BST的合法性、增、删、查
  * 《玩转算法面试视频例题》二分搜索树
  * 98. 验证二叉搜索树
  * 给定一个二叉树，判断其是否是一个有效的二叉搜索树。
