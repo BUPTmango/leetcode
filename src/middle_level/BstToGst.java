@@ -3,7 +3,7 @@ package middle_level;
 import data_structure.TreeNode;
 
 /**
- * 二分搜索树
+ * 二分搜索树 中序遍历有序
  * 1038. 把二叉搜索树转换为累加树
  * 给出二叉 搜索 树的根节点，该树的节点值各不相同，请你将其转换为累加树（Greater Sum Tree），使每个节点 node的新值等于原树中大于或等于node.val的值之和。
  *

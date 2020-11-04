@@ -5,7 +5,7 @@ import data_structure.TreeNode;
 import java.util.ArrayList;
 
 /**
- * 二分搜索树
+ * 二分搜索树 中序遍历有序
  * 230. 二叉搜索树中第K小的元素
  * 给定一个二叉搜索树，编写一个函数?kthSmallest?来查找其中第?k?个最小的元素。
  *
