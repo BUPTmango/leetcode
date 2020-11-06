@@ -5,6 +5,7 @@ import javafx.util.Pair;
 import java.util.*;
 
 /**
+ * 双向BFS
  * 《玩转算法面试视频例题》队列 图的BFS
  * 127. 单词接龙
  * 给定两个单词（beginWord?和 endWord）和一个字典，找到从?beginWord 到?endWord 的最短转换序列的长度。转换需遵循如下规则：
@@ -57,7 +58,7 @@ public class LadderLength {
         // 将wordList转换成wordSet
         Set<String> wordSet = new HashSet<>(wordList.size());
         wordSet.addAll(wordList);
-        // 已经存在就不需要转换
+        // 如果不在set中就无法转换
         if (!wordSet.contains(endWord)) {
             return 0;
         }
