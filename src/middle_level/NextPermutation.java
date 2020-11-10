@@ -1,7 +1,5 @@
 package middle_level;
 
-import static com.sun.tools.javac.jvm.ByteCodes.swap;
-
 /**
  * 31. 下一个排列
  * 实现获取下一个排列的函数，算法需要将给定数字序列重新排列成字典序中下一个更大的排列。
@@ -32,16 +30,19 @@ public class NextPermutation {
     public void nextPermutation(int[] nums) {
         int n = nums.length;
         int i = n - 2;
+        // 从后往前找到不是最大的序列
         while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
         }
         if (i >= 0) {
             int j = n - 1;
+            // 从右往左找到比当前这个数字大的数
             while (j > i && nums[j] <= nums[i]) {
                 j--;
             }
             swap(nums, i, j);
         }
+        // 将后面的数全部调换顺序
         reverse(nums, i + 1, n - 1);
     }
 
