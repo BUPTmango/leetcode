@@ -1,9 +1,12 @@
 package middle_level;
 
+
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
+ * LRU LFU 缓存
  * 146. LRU缓存机制
  * 运用你所掌握的数据结构，设计和实现一个? LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和 写入数据 put 。
  * <p>
@@ -21,93 +24,187 @@ import java.util.Map;
  * @date 2020/9/11 10:15 上午
  */
 public class LRUCache {
-    /**
-     * 自定义双向链表
-     */
-    class DLinkedNode {
-        int key;
-        int value;
-        DLinkedNode prev;
-        DLinkedNode next;
+//    /**
+//     * 自定义的双链表节点类
+//     */
+//    class Node {
+//        public int key, val;
+//        public Node prev, next;
+//        public Node (int k, int v) {
+//            key = k;
+//            val = v;
+//        }
+//    }
+//
+//    /**
+//     * 双链表数据结构
+//     */
+//    class DoubleList {
+//        // 头尾虚节点
+//        private Node head, tail;
+//        // 链表元素数
+//        private int size;
+//
+//        public DoubleList() {
+//            // 初始化双向链表的数据
+//            head = new Node(0, 0);
+//            tail = new Node(0, 0);
+//            head.next = tail;
+//            tail.prev = head;
+//            size = 0;
+//        }
+//
+//        // 在链表尾部添加节点x
+//        public void addLast(Node x) {
+//            x.prev = tail.prev;
+//            x.next = tail;
+//            tail.prev.next = x;
+//            tail.prev = x;
+//            size++;
+//        }
+//
+//        // 删除链表中的x节点
+//        public void remove(Node x) {
+//            x.prev.next = x.next;
+//            x.next.prev = x.prev;
+//            size--;
+//        }
+//
+//        // 删除链表中的第一个节点并返回
+//        public Node removeFirst() {
+//            if (head.next == tail) {
+//                return null;
+//            }
+//            Node first = head.next;
+//            remove(first);
+//            return first;
+//        }
+//
+//        // 返回链表长度
+//        public int size() {
+//            return size;
+//        }
+//    }
+//
+//
+//    private Map<Integer, Node> map;
+//    private DoubleList cache;
+//    private int cap;
+//    public LRUCache(int capacity) {
+//        cap = capacity;
+//        map = new HashMap<>();
+//        cache = new DoubleList();
+//    }
+//
+//    /**
+//     * 将某个key提升为最近使用的
+//     * @param key
+//     */
+//    private void makeRecently(int key) {
+//        Node x = map.get(key);
+//        // 先删除节点
+//        cache.remove(x);
+//        // 重新插到队尾
+//        cache.addLast(x);
+//    }
+//
+//    /**
+//     * 添加最近使用的元素
+//     * @param key
+//     * @param val
+//     */
+//    private void addRecently(int key, int val) {
+//        Node x = new Node(key, val);
+//        // 链表尾部就是最近使用的元素
+//        cache.addLast(x);
+//        // 在map中添加key的映射
+//        map.put(key, x);
+//    }
+//
+//    /**
+//     * 删除某一个key
+//     * @param key
+//     */
+//    private void deleteKey(int key) {
+//        Node x = map.get(key);
+//        // 从链表中删除
+//        cache.remove(x);
+//        // 从map中删除
+//        map.remove(key);
+//    }
+//
+//    /**
+//     * 删除最久未使用的元素
+//     */
+//    private void removeLeastRecently() {
+//        // 链表的第一个元素就是最久未使用的
+//        Node deletedNode = cache.removeFirst();
+//        // 从map中删除它的key
+//        map.remove(deletedNode.key);
+//    }
+//
+//    public int get(int key) {
+//        if (!map.containsKey(key)) {
+//            return -1;
+//        }
+//        // 提升为最近使用的
+//        makeRecently(key);
+//        return map.get(key).val;
+//    }
+//
+//    public void put(int key, int value) {
+//        // 已经存在key 修改key为对应的val 并提升为最近使用
+//        if (map.containsKey(key)) {
+//            // 删除旧的数据
+//            deleteKey(key);
+//            // 新插入的数据为最近使用的数据
+//            addRecently(key, value);
+//        } else {
+//            // 如果满了
+//            if (cache.size() == cap) {
+//                // 删除最久未使用的元素
+//                removeLeastRecently();
+//            }
+//            // 添加为最近使用的元素
+//            addRecently(key, value);
+//        }
+//    }
 
-        public DLinkedNode() {
-        }
+    // 注释掉的表示自己实现的链表
+    // 下面是使用jdk中的LinkedHashMap的实现
 
-        public DLinkedNode(int _key, int _value) {
-            key = _key;
-            value = _value;
-        }
-    }
-
-    private Map<Integer, DLinkedNode> cache = new HashMap<>();
-    private int size;
-    private int capacity;
-    private DLinkedNode head, tail;
-
+    private int cap;
+    private LinkedHashMap<Integer, Integer> cache;
     public LRUCache(int capacity) {
-        this.size = 0;
-        this.capacity = capacity;
-        // 使用伪头部和伪尾部节点
-        head = new DLinkedNode();
-        tail = new DLinkedNode();
-        head.next = tail;
-        tail.prev = head;
+        cap = capacity;
+        cache = new LinkedHashMap<>();
     }
 
     public int get(int key) {
-        DLinkedNode node = cache.get(key);
-        if (node == null) {
+        if (!cache.containsKey(key)) {
             return -1;
         }
-        // 如果 key 存在，先通过哈希表定位，再移到头部
-        moveToHead(node);
-        return node.value;
+        makeRecently(key);
+        return cache.get(key);
     }
 
     public void put(int key, int value) {
-        DLinkedNode node = cache.get(key);
-        if (node == null) {
-            // 如果 key 不存在，创建一个新的节点
-            DLinkedNode newNode = new DLinkedNode(key, value);
-            // 添加进哈希表
-            cache.put(key, newNode);
-            // 添加至双向链表的头部
-            addToHead(newNode);
-            ++size;
-            if (size > capacity) {
-                // 如果超出容量，删除双向链表的尾部节点
-                DLinkedNode tail = removeTail();
-                // 删除哈希表中对应的项
-                cache.remove(tail.key);
-                --size;
-            }
+        if (cache.containsKey(key)) {
+            cache.put(key, value);
+            makeRecently(key);
         } else {
-            // 如果 key 存在，先通过哈希表定位，再修改 value，并移到头部
-            node.value = value;
-            moveToHead(node);
+            if (cap == cache.size()) {
+                int oldestKey = cache.keySet().iterator().next();
+                cache.remove(oldestKey);
+            }
+            cache.put(key, value);
         }
     }
 
-    private void addToHead(DLinkedNode node) {
-        node.prev = head;
-        node.next = head.next;
-        head.next.prev = node;
-        head.next = node;
-    }
-
-    private void removeNode(DLinkedNode node) {
-        node.prev.next = node.next;
-        node.next.prev = node.prev;
-    }
-
-    private void moveToHead(DLinkedNode node) {
-        removeNode(node);
-        addToHead(node);
-    }
-
-    private DLinkedNode removeTail() {
-        DLinkedNode res = tail.prev;
-        removeNode(res);
-        return res;
+    private void makeRecently(int key) {
+        int val = cache.get(key);
+        // 删除并重新放到队尾
+        cache.remove(key);
+        cache.put(key, val);
     }
 }
