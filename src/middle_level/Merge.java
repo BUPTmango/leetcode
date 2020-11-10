@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
+ * 区间问题
  * 56. 合并区间
  * 给出一个区间的集合，请合并所有重叠的区间。
  *

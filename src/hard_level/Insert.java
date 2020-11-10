@@ -1,9 +1,11 @@
 package hard_level;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 区间问题
  * 57. 插入区间
  * 给出一个无重叠的 ，按照区间起始端点排序的区间列表。
  * <p>
@@ -25,34 +27,26 @@ import java.util.List;
  */
 public class Insert {
     public int[][] insert(int[][] intervals, int[] newInterval) {
-        int left = newInterval[0];
-        int right = newInterval[1];
-        boolean placed = false;
-        List<int[]> ansList = new ArrayList<>();
-        for (int[] interval : intervals) {
-            if (interval[0] > right) {
-                // 在插入区间的右侧且无交集
-                if (!placed) {
-                    ansList.add(new int[]{left, right});
-                    placed = true;
-                }
-                ansList.add(interval);
-            } else if (interval[1] < left) {
-                // 在插入区间的左侧且无交集
-                ansList.add(interval);
-            } else {
-                // 与插入区间有交集，计算它们的并集
-                left = Math.min(left, interval[0]);
-                right = Math.max(right, interval[1]);
-            }
+        int[][] res = new int[intervals.length + 1][2];
+        int index = 0;
+        // 遍历区间列表
+        // 1 将新区间左边且相离的区间加入结果集
+        int i = 0;
+        while (i < intervals.length && intervals[i][1] < newInterval[0]) {
+            res[index++] = intervals[i++];
         }
-        if (!placed) {
-            ansList.add(new int[]{left, right});
+        // 2 接着判断当前区间是否与新区间重叠 重叠就合并
+        while (i < intervals.length && intervals[i][0] <= newInterval[1]) {
+            newInterval[0] = Math.min(intervals[i][0], newInterval[0]);
+            newInterval[1] = Math.max(intervals[i][1], newInterval[1]);
+            i++;
         }
-        int[][] ans = new int[ansList.size()][2];
-        for (int i = 0; i < ansList.size(); ++i) {
-            ans[i] = ansList.get(i);
+        res[index++] = newInterval;
+        // 3 最后将新区间右边且相离的区间加入结果集
+        while (i < intervals.length) {
+            res[index++] = intervals[i++];
         }
-        return ans;
+        // 因为又可能最后一个是[0,0] 排除这种情况
+        return Arrays.copyOf(res, index);
     }
 }
