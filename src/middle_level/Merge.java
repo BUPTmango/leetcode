@@ -65,7 +65,7 @@ public class Merge {
         if (intervals == null || intervals.length <= 1) {
             return intervals;
         }
-        // 按照每个区间的起点排序c
+        // 按照每个区间的起点排序
         Arrays.sort(intervals, Comparator.comparingInt(o -> o[0]));
         List<int[]> res = new ArrayList<>();
         res.add(intervals[0]);
