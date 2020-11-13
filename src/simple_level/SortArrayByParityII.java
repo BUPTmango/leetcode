@@ -32,7 +32,7 @@ public class SortArrayByParityII {
         int n = A.length;
         int j = 1;
         for (int i = 0; i < n; i += 2) {
-            // 如果A[i]为奇数 就不断移动j 直到遇见下一个偶数
+            // 如果A[i]为oddEvenList奇数 就不断移动j 直到遇见下一个偶数
             if (A[i] % 2 == 1) {
                 while (A[j] % 2 == 1) {
                     j += 2;
