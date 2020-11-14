@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 快慢指针 判断环
  * 142. 环形链表 II
  * 给定一个链表，返回链表开始入环的第一个节点。?如果链表无环，则返回?null。
  *
@@ -46,44 +47,24 @@ public class DetectCycle {
      * @return
      */
     public ListNode detectCycle_pointer(ListNode head) {
-        if (head == null) {
-            return null;
-        }
-        ListNode slow = head, fast = head;
-        while (fast != null) {
-            // slow走一步 fast走两步
-            slow = slow.next;
-            if (fast.next != null) {
-                fast = fast.next.next;
-            } else {
-                // 能走到头 说明没有环
+        ListNode fast = head, slow = head;
+        while (true) {
+            // fast或者fast.next为null 说明没有环 直接返回null
+            if (fast == null || fast.next == null) {
                 return null;
             }
-            // 找到环之后 从头遍历
+            fast = fast.next.next;
+            slow = slow.next;
             if (fast == slow) {
-                ListNode ptr = head;
-                while (ptr != slow) {
-                    ptr = ptr.next;
-                    slow = slow.next;
-                }
-                return ptr;
+                break;
             }
         }
-        return null;
-    }
-
-    public ListNode detectCycle_set(ListNode head) {
-        ListNode pos = head;
-        Set<ListNode> set = new HashSet<>();
-        while (pos != null) {
-            if (set.contains(pos)) {
-                // 出现环
-                return pos;
-            } else {
-                set.add(pos);
-            }
-            pos = pos.next;
+        // 将slow指向head 同时走
+        slow = head;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
         }
-        return null;
+        return slow;
     }
 }

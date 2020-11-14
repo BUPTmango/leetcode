@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 快慢指针 判断环
  * 141. 环形链表
  * 给定一个链表，判断链表中是否有环。
  * 为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。
@@ -65,17 +66,15 @@ public class HasCycle {
         if (head == null || head.next == null) {
             return false;
         }
-        ListNode slow = head;
-        ListNode fast = head.next;
-        while (slow != fast) {
-            // 如果快指针到达尾部 就不是环形链表
-            if (fast == null || fast.next == null) {
-                return false;
-            }
-            // 继续移动
-            slow = slow.next;
+        ListNode fast = head, slow = head;
+        // 注意！！！ 这里的条件 两个都不能为null
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow) {
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 }

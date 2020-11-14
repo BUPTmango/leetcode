@@ -3,6 +3,7 @@ package simple_level;
 import data_structure.linked_list.ListNode;
 
 /**
+ * 快慢指针 找中间节点
  * 876. 链表的中间结点
  * 给定一个带有头结点?head?的非空单链表，返回链表的中间结点。
  *
@@ -34,12 +35,11 @@ import data_structure.linked_list.ListNode;
  */
 public class MiddleNode {
     public ListNode middleNode(ListNode head) {
-        ListNode[] A = new ListNode[100];
-        int t = 0;
-        while (head != null) {
-            A[t++] = head;
-            head = head.next;
+        ListNode fast = head, slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
         }
-        return A[t / 2];
+        return slow;
     }
 }
