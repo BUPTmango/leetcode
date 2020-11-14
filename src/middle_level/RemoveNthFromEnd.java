@@ -3,6 +3,7 @@ package middle_level;
 import data_structure.linked_list.ListNode;
 
 /**
+ * 快慢指针
  * 《玩转算法面试视频例题》链表 双指针
  * 19. 删除链表的倒数第N个节点
  * 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
@@ -49,7 +50,7 @@ public class RemoveNthFromEnd {
     }
 
     /**
-     * 一次遍历 两个指针中间差n个位置
+     * 一次遍历 两个指针中间差n个位置 推荐
      * @param head
      * @param n
      * @return
