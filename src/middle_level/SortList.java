@@ -36,6 +36,9 @@ public class SortList {
 
         // 快指针一次走两步 慢指针一次走一步 快的走完了慢的正好停在中间
         ListNode slow = head;
+        // 偶数的时候
+        // 初始情况 ListNode fast = head.next; 结束的时候slow指向中间两个节点的第一个
+        // 初始情况 ListNode fast = head; 结束的时候slow指向中间两个节点的第二个
         ListNode fast = head.next;
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
@@ -43,7 +46,7 @@ public class SortList {
         }
 
         ListNode mid = slow.next;
-        // 一个链表分成两个 中间指针断开
+        // 一个链表分成两个 中间指针断开！！
         slow.next = null;
         return merge(sortList(head), sortList(mid));
     }
