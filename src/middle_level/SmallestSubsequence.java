@@ -43,7 +43,7 @@ public class SmallestSubsequence {
             if (stack.contains(c)) {
                 continue;
             }
-            // 后面还有机会出现的才能pop
+            // ！！！后面还有机会出现的才能pop
             while (!stack.empty() && c < stack.peek() && s.indexOf(stack.peek(), i) != -1) {
                 stack.pop();
             }
