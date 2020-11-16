@@ -36,7 +36,7 @@ public class ReconstructQueue {
      */
     public int[][] reconstructQueue(int[][] people) {
         Arrays.sort(people, (o1, o2) -> {
-            // if the heights are equal, compare k-values
+            // 按照身高降序 身高相同个数增序
             return o1[0] == o2[0] ? o1[1] - o2[1] : o2[0] - o1[0];
         });
 
@@ -47,6 +47,5 @@ public class ReconstructQueue {
 
         int n = people.length;
         return output.toArray(new int[n][2]);
-
     }
 }
