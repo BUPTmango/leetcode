@@ -2,7 +2,7 @@ package simple_level;
 
 /**
  * 买卖股票
- * 121
+ * 121 买卖股票的最佳时机
  * 给定一个数组，它的第 i 个元素是一支给定股票第 i 天的价格。
  * 如果你最多只允许完成一笔交易（即买入和卖出一支股票），设计一个算法来计算你所能获取的最大利润。
  * 注意你不能在买入股票前卖出股票。
@@ -63,5 +63,28 @@ public class MaxProfit {
             }
         }
         return maxprofit;
+    }
+
+    /**
+     * 状态转移方法
+     * @param prices
+     * @return
+     */
+    public int maxProfit_state(int[] prices) {
+        if (prices.length == 0) {
+            return 0;
+        }
+        int n = prices.length;
+        // base case
+        int dp_i_0 = 0;
+        int dp_i_1 = -prices[0];
+        for (int i = 1; i < n; i++) {
+            // i表示i天结束之后
+            // 0表示不持有股票 1表示持有股票
+            dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);
+            // 因为只能买一次股票 索引这里直接是-prices[i]
+            dp_i_1 = Math.max(dp_i_1, -prices[i]);
+        }
+        return dp_i_0;
     }
 }

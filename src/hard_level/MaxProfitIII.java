@@ -48,4 +48,27 @@ public class MaxProfitIII {
         }
         return Math.max(0, s4);
     }
+
+    public int maxProfit_state(int[] prices) {
+        if (prices == null || prices.length == 0) {
+            return 0;
+        }
+        int max_k = 2;
+        int n = prices.length;
+        int[][][] dp = new int[n][max_k + 1][2];
+        // base case
+        for (int k = 1; k <= max_k; k++) {
+            dp[0][k][1] = -prices[0];
+        }
+        for (int i = 1; i < n; i++) {
+            dp[i][0][1] = Integer.MIN_VALUE;
+        }
+        for (int i = 1; i < n; i++) {
+            for (int k = 1; k <= max_k; k++) {
+                dp[i][k][0] = Math.max(dp[i - 1][k][0], dp[i - 1][k][1] + prices[i]);
+                dp[i][k][1] = Math.max(dp[i - 1][k][1], dp[i - 1][k - 1][0] - prices[i]);
+            }
+        }
+        return dp[n - 1][max_k][0];
+    }
 }

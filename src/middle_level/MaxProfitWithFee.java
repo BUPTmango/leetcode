@@ -50,4 +50,28 @@ public class MaxProfitWithFee {
         }
         return f[n - 1][0];
     }
+
+    /**
+     * 状态转移方法
+     * @param prices
+     * @param fee
+     * @return
+     */
+    public int maxProfit_state(int[] prices, int fee) {
+        if (prices.length == 0) {
+            return 0;
+        }
+        int n = prices.length;
+        // base case
+        int dp_i_0 = 0;
+        int dp_i_1 = -prices[0] - fee;
+        for (int i = 1; i < n; i++) {
+            int tmp = dp_i_0;
+            // i表示i天结束之后
+            // 0表示不持有股票 1表示持有股票
+            dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);
+            dp_i_1 = Math.max(dp_i_1, tmp - prices[i] - fee);
+        }
+        return dp_i_0;
+    }
 }

@@ -39,4 +39,27 @@ public class MaxProfitII {
         }
         return maxprofit;
     }
+
+    /**
+     * 状态转移方法
+     * @param prices
+     * @return
+     */
+    public int maxProfit_state(int[] prices) {
+        if (prices.length == 0) {
+            return 0;
+        }
+        int n = prices.length;
+        // base case
+        int dp_i_0 = 0;
+        int dp_i_1 = -prices[0];
+        for (int i = 1; i < n; i++) {
+            int tmp = dp_i_0;
+            // i表示i天结束之后
+            // 0表示不持有股票 1表示持有股票
+            dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);
+            dp_i_1 = Math.max(dp_i_1, tmp - prices[i]);
+        }
+        return dp_i_0;
+    }
 }

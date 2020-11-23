@@ -43,4 +43,20 @@ public class MaxProfit {
         }
         return Math.max(f[n - 1][1], f[n - 1][2]);
     }
+
+    public int maxProfit_state(int[] prices) {
+        if (prices.length == 0) {
+            return 0;
+        }
+        int n = prices.length;
+        // 分别代表dp[i][0], dp[i][1], dp[i - 2][0]
+        int dp_i_0 = 0, dp_i_1 = -prices[0], dp_pre_0 = 0;
+        for (int i = 1; i < n; i++) {
+            int temp = dp_i_0;
+            dp_i_0 = Math.max(dp_i_0, dp_i_1 + prices[i]);
+            dp_i_1 = Math.max(dp_i_1, dp_pre_0 - prices[i]);
+            dp_pre_0 = temp;
+        }
+        return dp_i_0;
+    }
 }
