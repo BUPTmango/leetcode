@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 /**
+ * sum问题
  * 《玩转算法面试视频例题》查找问题 sum
  * 15 三数之和
  * 给定一个包含 n 个整数的数组 nums，
@@ -32,7 +33,7 @@ public class ThreeSum {
         // 对数组nums进行排序
         Arrays.sort(nums);
         HashSet<List<Integer>> set = new HashSet<>();
-        // 让i从数组下标为0开始跑
+        // 让i从数组下标为0开始跑 穷举threeSum的第一个数
         for (int i = 0; i < nums.length; i++) {
             // 转化为对撞指针
             // j从i的后一个数开始
