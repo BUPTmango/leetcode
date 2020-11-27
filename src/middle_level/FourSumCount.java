@@ -34,6 +34,7 @@ public class FourSumCount {
     /**
      * 用一个map存储A和B的和的所有情况的出现个数
      * 还可以将A+B的和C+D的所有情况放到两个查找表中 这样也是O(n^2)的时间复杂度
+     * 注意 放两个查找表中会超出时间限制
      * @param A
      * @param B
      * @param C
