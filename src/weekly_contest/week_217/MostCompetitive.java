@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Stack;
 
 /**
+ * 单调栈
  * 5614. 找出最具竞争力的子序列
  * 给你一个整数数组 nums 和一个正整数 k ，返回长度为 k 且最具 竞争力 的 nums 子序列。
  *
@@ -63,6 +64,12 @@ public class MostCompetitive {
         return res;
     }
 
+    /**
+     * 单调栈 推荐
+     * @param nums
+     * @param k
+     * @return
+     */
     public int[] mostCompetitive_better(int[] nums, int k) {
         int n = nums.length;
         Stack<Integer> stack = new Stack<>();
