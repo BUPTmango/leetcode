@@ -45,7 +45,7 @@ public class CountPrimes {
         // 只需要 i * i < n 防止2 * 4 和 4 * 2 重复
         for (int i = 2; i * i < n; i++) {
             if (isPrime[i]) {
-                // 每次从 i * i 开始  防止2 * 4 和 4 * 2 重复
+                // 继续标记5（2 * 5标记过，3 * 5标记过，从5 * 5开始）
                 for (int j = i * i; j < n; j += i) {
                     isPrime[j] = false;
                 }
