@@ -1,5 +1,7 @@
 package simple_level;
 
+import java.util.Arrays;
+
 /**
  * 204
  * 计算质数
@@ -29,9 +31,8 @@ public class CountPrimes {
     }
 
     /**
-     * 2是质数，2的倍数就设置为false
-     * 3是指数，3的倍数就设置为false
-     * 以此类推
+     * 如果一个数是素数 那么它的倍数就不可能是素数了
+     *
      * @param n
      * @return
      */
@@ -39,20 +40,24 @@ public class CountPrimes {
         if (n <= 1) {
             return 0;
         }
-        int res = 0;
-        boolean[] juge = new boolean[n + 1];
-        for (int i = 0; i < n + 1; i++) {
-            juge[i] = true;
-        }
-        for (int i = 2; i < n; i++) {
-            if (juge[i]) {
-                for (int j = i + i; j < n; j += i) {
-                    juge[j] = false;
+        boolean[] isPrime = new boolean[n];
+        Arrays.fill(isPrime, true);
+        // 只需要 i * i < n 防止2 * 4 和 4 * 2 重复
+        for (int i = 2; i * i < n; i++) {
+            if (isPrime[i]) {
+                // 每次从 i * i 开始  防止2 * 4 和 4 * 2 重复
+                for (int j = i * i; j < n; j += i) {
+                    isPrime[j] = false;
                 }
-                res++;
             }
         }
-        return res;
+        int count = 0;
+        for (int i = 2; i < n; i++) {
+            if (isPrime[i]) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public static void main(String[] args) {
