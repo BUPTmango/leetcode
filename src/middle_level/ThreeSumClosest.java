@@ -1,6 +1,5 @@
 package middle_level;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -51,7 +50,7 @@ public class ThreeSumClosest {
         int result = 0;
         // 先排序
         Arrays.sort(nums);
-        for (int p = 0; p < nums.length; p++) {
+        for (int p = 0; p < nums.length - 2; p++) {
             int left = p + 1;
             int right = nums.length - 1;
             while (left < right) {
