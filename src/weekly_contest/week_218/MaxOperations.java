@@ -39,6 +39,7 @@ import java.util.List;
  */
 public class MaxOperations {
     public int maxOperations(int[] nums, int k) {
+        // 注意！！！！！！不用真的删除 扫描过了就算是删除了
         Arrays.sort(nums);
         int i = 0, j = nums.length - 1;
         int res = 0;
