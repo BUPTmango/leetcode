@@ -67,9 +67,11 @@ public class MinPathSum {
         int rows = grid.length, columns = grid[0].length;
         int[][] dp = new int[rows][columns];
         dp[0][0] = grid[0][0];
+        // 初始化左边界
         for (int i = 1; i < rows; i++) {
             dp[i][0] = dp[i - 1][0] + grid[i][0];
         }
+        // 初始化上边界
         for (int j = 1; j < columns; j++) {
             dp[0][j] = dp[0][j - 1] + grid[0][j];
         }
