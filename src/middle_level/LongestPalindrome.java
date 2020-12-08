@@ -61,6 +61,11 @@ public class LongestPalindrome {
         return null;
     }
 
+    /**
+     * 动态规划
+     * @param s
+     * @return
+     */
     public String longestPalindrome_dp(String s) {
         int len = s.length();
         // 特判
@@ -113,7 +118,7 @@ public class LongestPalindrome {
     }
 
     /**
-     * 中心扩展算法
+     * 中心扩展法
      *
      * @param s
      * @return
