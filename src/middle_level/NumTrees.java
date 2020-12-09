@@ -1,6 +1,7 @@
 package middle_level;
 
 /**
+ * 动态规划
  * 96. 不同的二叉搜索树
  * 给定一个整数 n，求以?1 ...?n?为节点组成的二叉搜索树有多少种？
  *
@@ -24,22 +25,28 @@ package middle_level;
 public class NumTrees {
     /**
      * 动态规划
-     * 给定一个有序序列 1 \cdots n1?n，为了构建出一棵二叉搜索树，我们可以遍历每个数字 ii，将该数字作为树根，将 1 \cdots (i-1)1?(i?1) 序列作为左子树，将 (i+1) \cdots n(i+1)?n 序列作为右子树。接着我们可以按照同样的方式递归构建左子树和右子树。
+     * 给定一个有序序列 1...n，为了构建出一棵二叉搜索树，
+     * 我们可以遍历每个数字 i，将该数字作为树根，将 1...(i - 1) 序列作为左子树，将 (i + 1)...n序列作为右子树。
+     * 接着我们可以按照同样的方式递归构建左子树和右子树。
      *
      * 在上述构建的过程中，由于根的值不同，因此我们能保证每棵二叉搜索树是唯一的。
-     *
-     * https://leetcode-cn.com/problems/unique-binary-search-trees/solution/bu-tong-de-er-cha-sou-suo-shu-by-leetcode-solution/
+     * 原问题可以分解成规模较小的两个子问题，且子问题的解可以复用。 可以想到用动态规划。
      *
      * @param n
      * @return
      */
     public int numTrees(int n) {
+        // G(n): 长度为 n 的序列能构成的不同二叉搜索树的个数
         int[] G = new int[n + 1];
         G[0] = 1;
         G[1] = 1;
 
-        for (int i = 2; i <= n; ++i) {
-            for (int j = 1; j <= i; ++j) {
+        // 遍历序列的长度
+        for (int i = 2; i <= n; i++) {
+            // 对左右树进行划分
+            for (int j = 1; j <= i; j++) {
+                // 左右进行组合 笛卡尔积
+                // 注意！！！ 这里是 j - 1
                 G[i] += G[j - 1] * G[i - j];
             }
         }
