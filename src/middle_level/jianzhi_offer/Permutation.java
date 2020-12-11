@@ -55,7 +55,7 @@ public class Permutation {
             if(set.contains(c[i])) {
                 continue;
             }
-            // 将 c[i] 加入 Set? ，以便之后遇到重复字符时剪枝
+            // 将 c[i] 加入 Set ，以便之后遇到重复字符时剪枝
             set.add(c[i]);
             // 固定字符： 将字符 c[i] 和 c[x] 交换，即固定 c[i] 为当前位字符
             swap(i, x);
