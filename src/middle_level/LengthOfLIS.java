@@ -41,6 +41,7 @@ public class LengthOfLIS {
         }
 
         int res = 1;
+        // 注意！！！ 这里不是返回最后一个元素 而是要遍历寻找
         // 查找dp中以所有位置结尾的里面最长的序列
         for (int i = 0; i < nums.length; i++) {
             res = Math.max(res, dp[i]);
