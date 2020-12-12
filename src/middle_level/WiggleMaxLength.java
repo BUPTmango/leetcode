@@ -42,6 +42,7 @@ public class WiggleMaxLength {
                 if (nums[i] > nums[j]) {
                     // 上扬的就要和down的比
                     up[i] = Math.max(up[i],down[j] + 1);
+                    // 注意！！！！ 这里不要算上等于的情况
                 } else if (nums[i] < nums[j]) {
                     // 下摆的就要和up的比
                     down[i] = Math.max(down[i],up[j] + 1);
