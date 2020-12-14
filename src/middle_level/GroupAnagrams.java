@@ -53,4 +53,19 @@ public class GroupAnagrams {
         }
         return new ArrayList(ans.values());
     }
+
+    public List<List<String>> groupAnagrams_another(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
+        // 按照排好序的string放入map
+        for (String str : strs) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+            if (!map.containsKey(key)) {
+                map.put(key, new ArrayList<>());
+            }
+            map.get(key).add(str);
+        }
+        return new ArrayList<>(map.values());
+    }
 }
