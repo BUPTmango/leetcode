@@ -40,6 +40,7 @@ public class WordPattern {
         }
         Map index = new HashMap();
         // 通过put的返回值判断 两个集合同时映射到一个第三方集合中
+        // 注意！！ 这里要用Integer 用int会有测试用例不通过
         for (Integer i = 0; i < words.length; ++i) {
             if (index.put(pattern.charAt(i), i) != index.put(words[i], i)) {
                 return false;
