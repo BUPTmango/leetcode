@@ -3,6 +3,7 @@ package middle_level.jianzhi_offer;
 import data_structure.TreeNode;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 面试题07. 重建二叉树
@@ -32,26 +33,27 @@ import java.util.HashMap;
  * @date 2020/5/7 10:05 上午
  */
 public class BuildTree {
-    // 存放中序遍历结果 map key->中序数组元素 value->中序数组索引
-    HashMap<Integer, Integer> dic = new HashMap<>();
-    // 存放前序遍历结果 数组
-    int[] po;
+    private Map<Integer, Integer> inMap = new HashMap<>();
     public TreeNode buildTree(int[] preorder, int[] inorder) {
-        po = preorder;
-        for(int i = 0; i < inorder.length; i++)
-            dic.put(inorder[i], i);
-        return recur(0, 0, inorder.length - 1);
+        int n = preorder.length;
+        for (int i = 0; i < n; i++) {
+            inMap.put(inorder[i], i);
+        }
+        return buildTree(preorder, inorder, 0, n - 1, 0, n - 1);
     }
-    TreeNode recur(int pre_root, int in_left, int in_right) {
-        if(in_left > in_right) return null;
-        // 根据前序遍历的索引创建根节点
-        TreeNode root = new TreeNode(po[pre_root]);
-        // 通过前序的索引得到中序的索引
-        int i = dic.get(po[pre_root]);
-        // 构建左子树 根据根节点索引i进行分割
-        root.left = recur(pre_root + 1, in_left, i - 1);
-        // 构建右子树 根据根节点索引i进行分割
-        root.right = recur(pre_root + i - in_left + 1, i + 1, in_right);
+
+    private TreeNode buildTree(int[] preorder, int[] inorder, int preStart, int preEnd, int inStart, int inEnd) {
+        if (preStart > preEnd || inStart > inEnd) {
+            return null;
+        }
+
+        // 前序遍历
+        TreeNode root = new TreeNode(preorder[preStart]);
+        int inRoot = inMap.get(root.val);
+        int numsLeft = inRoot - inStart;
+
+        root.left = buildTree(preorder, inorder, preStart + 1, preStart + numsLeft, inStart, inRoot - 1);
+        root.right = buildTree(preorder, inorder, preStart + numsLeft + 1, preEnd, inRoot + 1, inEnd);
         return root;
     }
 }
