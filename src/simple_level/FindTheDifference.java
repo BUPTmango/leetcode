@@ -1,7 +1,5 @@
 package simple_level;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 389. ’“≤ªÕ¨
