@@ -1,6 +1,5 @@
 package middle_level;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -23,47 +22,52 @@ import java.util.*;
  */
 public class ThreeSum {
     public List<List<Integer>> threeSum(int[] nums) {
-        if (nums == null) {
-            return null;
-        }
-        // 如果数组长度小于3，返回一个空集合
-        if (nums.length < 3) {
+        if (nums == null || nums.length < 3) {
             return new ArrayList<>();
         }
-        // 对数组nums进行排序
+
+        int n = nums.length;
+        List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
-        HashSet<List<Integer>> set = new HashSet<>();
-        // 让i从数组下标为0开始跑 穷举threeSum的第一个数
-        for (int i = 0; i < nums.length; i++) {
-            // 转化为对撞指针
-            // j从i的后一个数开始
-            int j = i + 1;
-            // k从数组最后一个数（最大的数）往前跑
-            int k = nums.length - 1;
-            while (j < k) {
-                if (nums[i] + nums[j] + nums[k] == 0) {
+
+        // 遍历第一个数 剩下的用双指针
+        for (int i = 0; i < n - 2; i++) {
+            int left = i + 1, right = n - 1;
+            // 如果第一个数大于0 后面的更大 三数之和不可能为0
+            if (nums[i] > 0) {
+                break;
+            }
+            // 去掉重复情况
+            if (i > 0 && nums[i] == nums[i - 1]) {
+                continue;
+            }
+            while (left < right) {
+                int sum = nums[i] + nums[left] + nums[right];
+                if (sum == 0) {
                     List<Integer> list = new ArrayList<>();
                     list.add(nums[i]);
-                    list.add(nums[j]);
-                    list.add(nums[k]);
-                    set.add(list);
-                    // 去重逻辑应该放在找到一个三元组之后
-                    // 当有重复的数字出现时，j往前跑，防止结果有重复
-                    while (j < k && nums[j] == nums[j + 1]) {
-                        j++;
+                    list.add(nums[left]);
+                    list.add(nums[right]);
+                    res.add(list);
+                    // 去重
+                    while (left < right && nums[left + 1] == nums[left]) {
+                        left++;
                     }
-                    while (j < k && nums[k] == nums[k - 1]) {
-                        k--;
+                    // 去重
+                    while (left < right && nums[right - 1] == nums[right]) {
+                        right--;
                     }
-                    j++;
-                    k--;
-                } else if (nums[i] + nums[j] + nums[k] < 0) {
-                    j++;
+                    // 注意！！ 两侧同时向里缩
+                    left++;
+                    right--;
+                } else if (sum < 0) {
+                    left++;
                 } else {
-                    k--;
+                    right--;
                 }
             }
         }
-        return new ArrayList<>(set);
+
+        return res;
     }
 }
