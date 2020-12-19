@@ -14,6 +14,7 @@ package middle_level;
 public class MaxArea {
     /**
      * 暴力解法
+     *
      * @param height
      * @return
      */
@@ -44,6 +45,7 @@ public class MaxArea {
      * 因为我们的容量由短板决定，所以我们希望短板更长。
      * 如果这个时候num[l] > num[r]，我们就需要将r--。
      * 而num[l] == num[r]，l++或者r--都可以。
+     *
      * @param height
      * @return
      */
@@ -72,20 +74,21 @@ public class MaxArea {
      * 若向内移动短板，水槽的短板 min(h[i], h[j]) 可能变大，因此水槽面积 S(i, j) 可能增大。
      * 若向内移动长板，水槽的短板 min(h[i], h[j]) 不变或变小，下个水槽的面积一定小于当前水槽面积。
      * 因此，向内收窄短板可以获取面积最大值。
+     *
      * @param height
      * @return
      */
     public static int maxArea_better_easy(int[] height) {
         int i = 0, j = height.length - 1, res = 0;
-        while(i < j){
+        while (i < j) {
             res = height[i] < height[j] ?
-                    Math.max(res, (j - i) * height[i++]):
+                    Math.max(res, (j - i) * height[i++]) :
                     Math.max(res, (j - i) * height[j--]);
         }
         return res;
     }
 
     public static void main(String[] args) {
-        System.out.println(maxArea(new int[]{1,8,6,2,5,4,8,3,7}));
+        System.out.println(maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
     }
 }
