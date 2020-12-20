@@ -1,8 +1,5 @@
 package simple_level.jianzhi_offer;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * 面试题66. 构建乘积数组
@@ -48,9 +45,9 @@ public class ConstructArr {
     }
 
     /**
-     * 从左往右遍历累乘，结果保存在数组 retret 中，此时 ret[i]ret[i] 表示，A[i]A[i] 左边所有元素的乘积
-     * 然后从右往左遍历累乘，获取A[i]A[i] 右边所有元素的乘积
-     * 两边遍历之后得到的 retret，就是最终结果
+     * 从左往右遍历累乘，结果保存在数组 ret 中，此时 ret[i] 表示，A[i] 左边所有元素的乘积
+     * 然后从右往左遍历累乘，获取A[i] 右边所有元素的乘积
+     * 两边遍历之后得到的 ret，就是最终结果
      *
      * @param a
      * @return
