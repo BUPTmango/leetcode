@@ -52,7 +52,7 @@ public class MaxProfit {
     public int maxProfit_easy(int[] prices) {
         int minprice = Integer.MAX_VALUE;
         int maxprofit = 0;
-        // 只需遍历数组一边
+        // 只需遍历数组一遍
         for (int i = 0; i < prices.length; i++) {
             if (prices[i] < minprice) {
                 // 记录历史最低点
