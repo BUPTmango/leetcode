@@ -34,7 +34,7 @@ import java.util.Stack;
  */
 public class ValidateStackSequences {
     /**
-     * 考虑借用一个辅助栈 stackstack ，模拟 压入 / 弹出操作的排列。根据是否模拟成功，即可得到结果。
+     * 考虑借用一个辅助栈 stack ，模拟 压入 / 弹出操作的排列。根据是否模拟成功，即可得到结果。
      *
      * 入栈操作： 按照压栈序列的顺序执行。
      * 出栈操作： 每次入栈后，循环判断 “栈顶元素 == 弹出序列的当前元素” 是否成立，将符合弹出序列顺序的栈顶元素全部弹出。
@@ -51,6 +51,7 @@ public class ValidateStackSequences {
             // num 入栈
             stack.push(num);
             // 循环判断与出栈
+            // 注意！！！！ 这里是while
             while(!stack.isEmpty() && stack.peek() == popped[i]) {
                 // 栈顶元素 == 弹出序列的当前元素
                 stack.pop();
