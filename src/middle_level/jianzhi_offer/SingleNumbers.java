@@ -40,4 +40,32 @@ public class SingleNumbers {
         }
         return result;
     }
+
+    /**
+     * 将两个不同的数字分到两个组中 分别全员异或
+     * @param nums
+     * @return
+     */
+    public int[] singleNumbers_better(int[] nums) {
+        int ret = 0;
+        // 全员异或
+        for (int n : nums) {
+            ret ^= n;
+        }
+        // 找到第一个为1的地方 也就是两个数字不一样的地方
+        int div = 1;
+        while ((div & ret) == 0) {
+            div <<= 1;
+        }
+        // 进行分组异或
+        int a = 0, b = 0;
+        for (int n : nums) {
+            if ((div & n) != 0) {
+                a ^= n;
+            } else {
+                b ^= n;
+            }
+        }
+        return new int[]{a, b};
+    }
 }
