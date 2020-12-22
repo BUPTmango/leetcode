@@ -75,12 +75,12 @@ public class RightSideView {
         while (queue.size() > 0) {
             // 获取当前队列的长度，这个长度相当于 当前这一层的节点个数
             int size = queue.size();
-            ArrayList<Integer> tmp = new ArrayList<>();
+            int ele = 0;
             // 将队列中的元素都拿出来(也就是获取这一层的节点)，放到临时list中
             // 如果节点的左/右子树不为空，也放入队列中
             for (int i = 0; i < size; ++i) {
                 TreeNode t = queue.remove();
-                tmp.add(t.val);
+                ele = t.val;
                 if (t.left != null) {
                     queue.add(t.left);
                 }
@@ -89,7 +89,7 @@ public class RightSideView {
                 }
             }
             // 将每一层的最后一个元素放到res中
-            res.add(tmp.get(tmp.size() - 1));
+            res.add(ele);
         }
         return res;
     }
