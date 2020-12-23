@@ -30,15 +30,15 @@ public class IsStraight {
     /**
      * 方法一 不使用排序
      *
-     * 如果我们能够知道 5 张扑克牌中的最大值 maxValuemaxValue 和最小值 minValueminValue ，
-     * 那我们就知道，要使它为顺子需要 maxValue - minValue + 1maxValue?minValue+1 张牌。
-     * 在查找 maxValuemaxValue 和 minValueminValue 过程中，跳过大小王 00 。
-     * 如果 maxValue - minValue + 1 > 5maxValue?minValue+1>5，
-     * 说明题目给的 5 张牌不足以构成顺子，返回 falsefalse .
+     * 如果我们能够知道 5 张扑克牌中的最大值 maxValue 和最小值 minValue ，
+     * 那我们就知道，要使它为顺子需要 maxValue - minValue + 1 张牌。
+     * 在查找 maxValue 和 minValue 过程中，跳过大小王 0 。
+     * 如果 maxValue - minValue + 1 > 5，
+     * 说明题目给的 5 张牌不足以构成顺子，返回 false .
      * 即使里面有大小王，也不够用来填补使它构成顺子。
-     * 如果 maxValue - minValue + 1 <= 5maxValue?minValue+1<=5，说明 5 张牌足以构成顺子，返回 truetrue。
+     * 如果 maxValue - minValue + 1 <= 5，说明 5 张牌足以构成顺子，返回 true。
      * 里面的大小王填补在合适位置即可。
-     * 同时，我们再定义一个标志数组判断是否有重复数字，发现重复数字直接返回 falsefalse 即可。
+     * 同时，我们再定义一个标志数组判断是否有重复数字，发现重复数字直接返回 false 即可。
      *
      * @param nums
      * @return
@@ -50,6 +50,7 @@ public class IsStraight {
             if (item == 0) {
                 continue;
             }
+            // 有除了0以外的相同元素 肯定不能组成顺子
             if (flag[item]) {
                 return false;
             }
