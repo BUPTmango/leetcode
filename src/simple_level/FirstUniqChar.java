@@ -25,26 +25,16 @@ import java.util.Map;
  */
 public class FirstUniqChar {
     public int firstUniqChar(String s) {
-        if (s == null || s.length() == 0) {
-            return -1;
+        // 第一遍记录次数
+        int[] times = new int[26];
+        int len = s.length();
+        for (int i = 0; i < len; i++) {
+            times[s.charAt(i) - 'a']++;
         }
-        Map<Character, Integer> map = new HashMap<>();
-        // 第一遍添加map次数
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (map.containsKey(c)) {
-                map.put(c, map.get(c) + 1);
-            } else {
-                map.put(c, 1);
-            }
-        }
-        // 第二遍进行查找
-        for (int j = 0; j < s.length(); j++) {
-            char r = s.charAt(j);
-            if (map.containsKey(r)) {
-                if (map.get(r) == 1) {
-                    return j;
-                }
+        // 寻找次数为1的第一个
+        for (int i = 0; i < len; i++) {
+            if (times[s.charAt(i) - 'a'] == 1) {
+                return i;
             }
         }
         return -1;
