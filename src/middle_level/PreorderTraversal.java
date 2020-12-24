@@ -2,7 +2,9 @@ package middle_level;
 
 import data_structure.TreeNode;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
 
 /**
@@ -37,5 +39,31 @@ public class PreorderTraversal {
         list.add(root.val);
         preorder(root.left);
         preorder(root.right);
+    }
+
+    /**
+     * 非递归写法
+     * @param root
+     * @return
+     */
+    public List<Integer> preorderTraversal_iterate(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        stack.push(root);
+        while (!stack.isEmpty()) {
+            TreeNode node = stack.pop();
+            res.add(node.val);
+            // 因为放入栈 所以左右要反过来
+            if (node.right != null) {
+                stack.push(node.right);
+            }
+            if (node.left != null) {
+                stack.push(node.left);
+            }
+        }
+        return res;
     }
 }

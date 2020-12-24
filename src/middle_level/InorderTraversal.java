@@ -2,9 +2,7 @@ package middle_level;
 
 import data_structure.TreeNode;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * 94. 二叉树的中序遍历
@@ -41,27 +39,27 @@ public class InorderTraversal {
     }
 
     /**
-     * 递归的调用过程是不断往左边走，当左边走不下去了，就打印节点，并转向右边，然后右边继续这个过程。
-     * 我们在迭代实现时，就可以用栈来模拟上面的调用过程。
+     * 非递归写法
      * @param root
      * @return
      */
-    public List<Integer> inorderTraversal_iter(TreeNode root) {
+    public List<Integer> inorderTraversal_iterate(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<>();
-        while(stack.size() > 0 || root != null) {
-            // 不断往左子树方向走，每走一次就将当前节点保存到栈中
-            // 这是模拟递归的调用
-            if(root != null) {
-                stack.add(root);
+        if (root == null) {
+            return res;
+        }
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        while (!stack.isEmpty() || root != null) {
+            // 先尽可能找到左边的节点
+            while (root != null) {
+                stack.push(root);
                 root = root.left;
-                // 当前节点为空，说明左边走到头了，从栈中弹出节点并保存
-                // 然后转向右边节点，继续上面整个过程
-            } else {
-                TreeNode tmp = stack.pop();
-                res.add(tmp.val);
-                root = tmp.right;
             }
+            // 打印
+            root = stack.pop();
+            res.add(root.val);
+            // 继续寻找右边的
+            root = root.right;
         }
         return res;
     }
