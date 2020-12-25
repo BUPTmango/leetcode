@@ -54,6 +54,7 @@ public class IsValid {
                 stack.push(']');
             }
             // pop出来的和c不相同就够不成有效的括号
+            // 注意这里有一个stack.isEmpty()的条件
             else if (stack.empty() || c != stack.pop()) {
                 return false;
             }
