@@ -41,18 +41,23 @@ import java.util.Arrays;
  */
 public class FindContentChildren {
     public int findContentChildren(int[] grid, int[] size) {
-        if (grid == null || size == null) {
-            return 0;
-        }
+        // 分别排序
         Arrays.sort(grid);
         Arrays.sort(size);
-        int gi = 0, si = 0;
-        while (gi < grid.length && si < size.length) {
-            if (grid[gi] <= size[si]) {
-                gi++;
+        int len = size.length;
+        int res = 0;
+        int index = grid.length - 1;
+        // 贪心分配
+        for (int i = len - 1; i >= 0; i--) {
+            while (index >= 0 && grid[index] > size[i]) {
+                index--;
             }
-            si++;
+            if (index < 0) {
+                break;
+            }
+            res++;
+            index--;
         }
-        return gi;
+        return res;
     }
 }
