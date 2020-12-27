@@ -48,9 +48,15 @@ public class IsIsomorphic {
      * @return
      */
     public boolean isIsomorphic(String s, String t) {
+        if (s == null || t == null) {
+            return false;
+        }
+        if (s.length() != t.length()) {
+            return false;
+        }
         int n = s.length();
-        int[] mapS = new int[128];
-        int[] mapT = new int[128];
+        int[] mapS = new int[256];
+        int[] mapT = new int[256];
         for (int i = 0; i < n; i++) {
             char c1 = s.charAt(i);
             char c2 = t.charAt(i);
