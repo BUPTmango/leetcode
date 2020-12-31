@@ -1,6 +1,7 @@
 package middle_level;
 
 import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * 《玩转算法面试视频例题》贪心算法 和 动态规划（最长上升子序列）
@@ -89,22 +90,20 @@ public class EraseOverlapIntervals {
             return 0;
         }
         // 按照区间的结尾排序
-        Arrays.sort(intervals, ((o1, o2) -> {
-            if (o1[1] == o2[1]) {
-                return o1[0] - o2[0];
-            } else {
-                return o1[1] - o2[1];
-            }
-        }));
+        Arrays.sort(intervals, (Comparator.comparingInt(o -> o[1])));
 
-        int res = 1;
-        int pre = 0;
-        for (int i = 1; i < intervals.length; i++) {
-            if (intervals[i][0] >= intervals[pre][1]) {
-                res++;
-                pre = i;
+        // 至少有一个区间不相交
+        int count = 1;
+        // 排序后，第一个区间就是x
+        int x_end = intervals[0][1];
+        for (int[] interval : intervals) {
+            int start = interval[0];
+            if (start >= x_end) {
+                // 找到下一个选择的区间了
+                count++;
+                x_end = interval[1];
             }
         }
-        return intervals.length - res;
+        return intervals.length - count;
     }
 }
