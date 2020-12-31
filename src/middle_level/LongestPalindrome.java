@@ -79,7 +79,7 @@ public class LongestPalindrome {
         // 1. 状态定义
         // dp[i][j] 表示s[i...j] 是否是回文串
 
-        // 2. 初始化 对角线上的也就是单个字符的字符串是回文字串
+        // 2. 初始化 对角线上的也就是单个字符的字符串是回文字串 也可以不初始化
         boolean[][] dp = new boolean[len][len];
         for (int i = 0; i < len; i++) {
             dp[i][i] = true;
