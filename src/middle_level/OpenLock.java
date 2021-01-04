@@ -139,6 +139,7 @@ public class OpenLock {
             // set在遍历中不能修改，使用temp存储扩散结果
             Set<String> temp = new HashSet<>();
 
+            // 将q1中的所有节点向周围扩散
             for (String cur : q1) {
                 // 如果遇到dead继续遍历
                 if (dead.contains(cur)) {
@@ -156,7 +157,7 @@ public class OpenLock {
                         int y = ((cur.charAt(i) - '0') + d + 10) % 10;
                         String nei = cur.substring(0, i) + ("" + y) + cur.substring(i + 1);
                         if (!seen.contains(nei)) {
-                            temp.add(cur);
+                            temp.add(nei);
                         }
                     }
                 }
