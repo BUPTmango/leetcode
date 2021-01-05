@@ -55,6 +55,7 @@ public class PathSum {
         path.add(root.val);
         tar -= root.val;
         // 找到了路径和并且是叶子节点 就不需要继续遍历
+        // 注意这里要先添加root.val之后进行判断 都是null就不进行遍历了 否则会输出结果两遍
         if(tar == 0 && root.left == null && root.right == null) {
             res.add(new ArrayList<>(path));
         }
