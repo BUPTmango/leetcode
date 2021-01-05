@@ -8,11 +8,11 @@ import java.util.Set;
 /**
  * 剑指 Offer 38. 字符串的排列
  * 输入一个字符串，打印出该字符串中字符的所有排列。
- *
+ * <p>
  * 你可以以任意顺序返回这个字符串数组，但里面不能有重复元素。
- *
+ * <p>
  * 示例:
- *
+ * <p>
  * 输入：s = "abc"
  * 输出：["abc","acb","bac","bca","cab","cba"]
  *
@@ -23,11 +23,12 @@ import java.util.Set;
 public class Permutation {
     List<String> res = new LinkedList<>();
     char[] c;
+
     /**
      * 排列方案数量： 对于一个长度为 nn 的字符串（假设字符互不重复），其排列共有 n \times (n-1) \times (n-2) … \times 2 \times 1n×(n?1)×(n?2)…×2×1 种方案。
-     *
-     * 排列方案的生成方法： 根据字符串排列的特点，考虑深度优先搜索所有排列方案。即通过字符交换，先固定第 11 位字符（ nn 种情况）、再固定第 22 位字符（ n-1n?1 种情况）、... 、最后固定第 nn 位字符（ 11 种情况）。
-     *
+     * <p>
+     * 排列方案的生成方法： 根据字符串排列的特点，考虑深度优先搜索所有排列方案。即通过字符交换，先固定第 1 位字符（ nn 种情况）、再固定第 2 位字符（ n-1 种情况）、... 、最后固定第 n 位字符（ 1 种情况）。
+     * <p>
      * 重复方案与剪枝： 当字符串存在重复字符时，排列方案中也存在重复方案。为排除重复方案，需在固定某位字符时，保证 “每种字符只在此位固定一次” ，即遇到重复字符时不交换，直接跳过。从 DFS 角度看，此操作称为 “剪枝” 。
      *
      * @param s
@@ -41,18 +42,19 @@ public class Permutation {
 
     /**
      * x表示固定字符的index
+     *
      * @param x
      */
     void dfs(int x) {
-        if(x == c.length - 1) {
+        if (x == c.length - 1) {
             // 添加排列方案
             res.add(String.valueOf(c));
             return;
         }
         Set<Character> set = new HashSet<>();
-        for(int i = x; i < c.length; i++) {
+        for (int i = x; i < c.length; i++) {
             // 重复，因此剪枝
-            if(set.contains(c[i])) {
+            if (set.contains(c[i])) {
                 continue;
             }
             // 将 c[i] 加入 Set ，以便之后遇到重复字符时剪枝
@@ -65,6 +67,7 @@ public class Permutation {
             swap(i, x);
         }
     }
+
     void swap(int a, int b) {
         char tmp = c[a];
         c[a] = c[b];
