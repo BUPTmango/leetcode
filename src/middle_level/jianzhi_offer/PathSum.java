@@ -9,22 +9,22 @@ import java.util.List;
 /**
  * 剑指 Offer 34. 二叉树中和为某一值的路径
  * 输入一棵二叉树和一个整数，打印出二叉树中节点值的和为输入整数的所有路径。从树的根节点开始往下一直到叶节点所经过的节点形成一条路径。
- *
+ * <p>
  * 示例:
  * 给定如下二叉树，以及目标和?sum = 22，
- *
- *               5
- *              / \
- *             4   8
- *            /   / \
- *           11  13  4
- *          /  \    / \
- *         7    2  5   1
+ * <p>
+ * 5
+ * / \
+ * 4   8
+ * /   / \
+ * 11  13  4
+ * /  \    / \
+ * 7    2  5   1
  * 返回:
- *
+ * <p>
  * [
- *    [5,4,11,2],
- *    [5,8,4,5]
+ * [5,4,11,2],
+ * [5,8,4,5]
  * ]
  *
  * @author Wang Guolong
@@ -34,6 +34,7 @@ import java.util.List;
 public class PathSum {
     List<List<Integer>> res = new ArrayList<>();
     List<Integer> path = new ArrayList<>();
+
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
         recur(root, sum);
         return res;
@@ -45,18 +46,19 @@ public class PathSum {
      * 路径记录： 当 ① root 为叶节点 且 ② 路径和等于目标值 ，则将此路径 path 加入 res 。
      * 先序遍历： 递归左 / 右子节点。
      * 路径恢复： 向上回溯前，需要将当前节点从路径 path 中删除，即执行 path.pop() 。
+     *
      * @param root
      * @param tar
      */
     void recur(TreeNode root, int tar) {
-        if(root == null) {
+        if (root == null) {
             return;
         }
         path.add(root.val);
         tar -= root.val;
         // 找到了路径和并且是叶子节点 就不需要继续遍历
         // 注意这里要先添加root.val之后进行判断 都是null就不进行遍历了 否则会输出结果两遍
-        if(tar == 0 && root.left == null && root.right == null) {
+        if (tar == 0 && root.left == null && root.right == null) {
             res.add(new ArrayList<>(path));
         }
         // 遍历左子树
