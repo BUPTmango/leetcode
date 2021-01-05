@@ -35,6 +35,7 @@ public class MinWindow {
             need.put(tChar, need.getOrDefault(tChar, 0) + 1);
         }
 
+        // 窗口是左闭右开的 初始情况下窗口中没有任何元素
         int left = 0, right = 0, valid = 0;
         int start = 0, len = Integer.MAX_VALUE;
         while (right < s.length()) {
