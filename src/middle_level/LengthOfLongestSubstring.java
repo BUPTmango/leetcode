@@ -79,6 +79,24 @@ public class LengthOfLongestSubstring {
         return res;
     }
 
+    public int lengthOfLongestSubstring_own(String s) {
+        Set<Character> set = new HashSet<>();
+        int n = s.length();
+        int l = 0, r = 0;
+        int res = 0;
+        // 滑动窗口
+        while (l < n) {
+            while (r < n && !set.contains(s.charAt(r))) {
+                set.add(s.charAt(r));
+                r++;
+            }
+            // 更新
+            res = Math.max(res, r - l);
+            set.remove(s.charAt(l++));
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         System.out.println(lengthOfLongestSubstring_another("abcabcbb"));
     }
