@@ -54,15 +54,18 @@ public class MaxSubArray {
         if (nums == null || nums.length == 0) {
             return 0;
         }
-        int max = nums[0];
-        int sum = nums[0];
+        // base case
+        int dp_0 = nums[0];
+        int dp_1 = 0, res = dp_0;
         // 注意这里从1开始
         for (int i = 1; i < nums.length; i++) {
             // 考虑两种情况 作为一个新段还是加入原来的段
-            sum = Math.max(nums[i], sum + nums[i]);
-            max = Math.max(max, sum);
+            dp_1 = Math.max(nums[i], dp_0 + nums[i]);
+            dp_0 = dp_1;
+            // 取最大结果
+            res = Math.max(res, dp_1);
         }
-        return max;
+        return res;
     }
 
     public static void main(String[] args) {
