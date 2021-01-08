@@ -1,9 +1,5 @@
 package middle_level.jianzhi_offer;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-
 /**
  *
  * 剑指 Offer 12. 矩阵中的路径
@@ -36,6 +32,7 @@ public class Exist {
         char[] words = word.toCharArray();
         for(int i = 0; i < board.length; i++) {
             for(int j = 0; j < board[0].length; j++) {
+                // 注意！！！ board不能使用全局变量 要通过方法传进来
                 if(dfs(board, words, i, j, 0)) {
                     return true;
                 }
