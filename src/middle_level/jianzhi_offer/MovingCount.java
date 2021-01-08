@@ -77,4 +77,35 @@ public class MovingCount {
         }
         return res;
     }
+
+
+    public int movingCount_dfs(int m, int n, int k) {
+        boolean[][] visited = new boolean[m][n];
+        // 机器人从[0,0]坐标开始移动
+        return dfs(m, n ,k , visited, 0, 0);
+    }
+
+    public int dfs(int m, int n, int k, boolean[][] visited, int x, int y){
+        // 递归终止条件
+        if((get(x) + get(y) > k) || x < 0 || x >= m || y < 0 || y >= n || visited[x][y]){
+            return 0;
+        }
+        // 将该格子标记为已经访问过
+        visited[x][y] = true;
+        // 继续搜索方向  优化！！！ 这里只需要向下和向右搜索就可以了
+        return 1 + dfs(m, n , k, visited, x, y+1)
+                + dfs(m, n , k, visited, x+1, y);
+        // 回溯的返回过程
+        // 注意！！！ 这里就不需要visited变成false了 因为可以多次尝试走 不是一条路径
+    }
+
+    // 计算一个数的各个位数之和
+    private int get(int x) {
+        int res = 0;
+        while (x != 0) {
+            res += x % 10;
+            x /= 10;
+        }
+        return res;
+    }
 }
