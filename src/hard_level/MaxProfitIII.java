@@ -60,6 +60,7 @@ public class MaxProfitIII {
         for (int k = 1; k <= max_k; k++) {
             dp[0][k][1] = -prices[0];
         }
+        // k == 0 表示没有交易 是不可能持有股票的 最小值表示这种不可能
         for (int i = 1; i < n; i++) {
             dp[i][0][1] = Integer.MIN_VALUE;
         }
