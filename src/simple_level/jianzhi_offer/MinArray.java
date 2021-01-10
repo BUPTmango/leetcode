@@ -39,14 +39,18 @@ public class MinArray {
         int i = 0, j = numbers.length - 1;
         while (i < j) {
             int m = (i + j) / 2;
+            // 注意！！ 这里和右边界比较
             if (numbers[m] > numbers[j]) {
                 i = m + 1;
             } else if (numbers[m] < numbers[j]) {
+                // 注意！！ 这里不是 m - 1  是因为有可能此时m就是最小值
                 j = m;
             } else {
+                // 相等的时候无法判断在左边还是在右边 缩小范围
                 j--;
             }
         }
+        // i==j的时候跳出循环
         return numbers[i];
     }
 }
