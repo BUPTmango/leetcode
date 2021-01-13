@@ -1,7 +1,7 @@
 package simple_level.jianzhi_offer;
 
 /**
- * 面试题05. 替换空格
+ * 面试题05. ti替换空格
  * 请实现一个函数，把字符串 s 中的每个空格替换成"%20"。
  *
  * 示例 1：
@@ -25,5 +25,24 @@ public class ReplaceSpace {
         }
         s = s.replace(" ", "%20");
         return s;
+    }
+
+    public String replaceSpace_array(String s) {
+        int length = s.length();
+        // 声明为3倍的大小 就算全是空格也不会越界
+        char[] array = new char[length * 3];
+        int size = 0;
+        for (int i = 0; i < length; i++) {
+            char c = s.charAt(i);
+            if (c == ' ') {
+                array[size++] = '%';
+                array[size++] = '2';
+                array[size++] = '0';
+            } else {
+                array[size++] = c;
+            }
+        }
+        String newStr = new String(array, 0, size);
+        return newStr;
     }
 }
