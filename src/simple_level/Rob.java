@@ -1,7 +1,5 @@
 package simple_level;
 
-import java.util.Arrays;
-
 /**
  * 《玩转算法面试视频例题》 动态规划 状态的定义 状态的转移
  * 198 打家劫舍
@@ -33,16 +31,12 @@ public class Rob {
             return 0;
         }
         int n = nums.length;
-        int[] dp = new int[n];
-        Arrays.fill(dp, -1);
-        // 初始化 在[n - 1, n)范围里 只有一家 必偷
-        dp[n - 1] = nums[n - 1];
-        // 尝试在[i, n)范围内打家劫舍
-        for (int i = n - 2; i >= 0; i--) {
-            for (int j = i; j < n; j++) {
-                // j + 2 要考虑越界问题
-                dp[i] = Math.max(dp[i], nums[j] + (j + 2 < n ? dp[j + 2] : 0));
-            }
+        // dp[i] = x 表示: 从第i间房子开始做选择，最多能取出的钱为x
+        int[] dp = new int[n + 2];
+        for (int i = n - 1; i >= 0; i--) {
+            // 不取钱 去下一间房
+            // 取钱 去下下间房
+            dp[i] = Math.max(dp[i + 1], nums[i] + dp[i + 2]);
         }
         return dp[0];
     }
