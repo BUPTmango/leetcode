@@ -37,7 +37,7 @@ public class FindMaxForm {
         int[][] dp = new int[m + 1][n + 1];
         for (int i = 0; i < strs.length; i++) {
             int[] count = count(strs[i]);
-            // 有限背包 注意！！！！ 要从大到小遍历
+            // 二维背包 注意！！！！ 要从大到小遍历
             for (int j = m; j >= count[0]; j--) {
                 for (int k = n; k >= count[1]; k--) {
                     dp[j][k] = Math.max(dp[j][k], dp[j - count[0]][k - count[1]] + 1);
