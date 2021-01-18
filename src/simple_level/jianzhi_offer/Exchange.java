@@ -38,7 +38,7 @@ public class Exchange {
             // 搜索到奇数
             if (nums[fast] % 2 != 0) {
                 // fast位置和slow位置交换
-                nums = swap(nums, fast, slow);
+                swap(nums, fast, slow);
                 // slow向前移动一个位置 slow是下一个奇数应该存放的位置
                 slow++;
             }
@@ -48,10 +48,61 @@ public class Exchange {
         return nums;
     }
 
-    private int[] swap(int[] nums, int i, int j) {
+    private void swap(int[] nums, int i, int j) {
         int middle = nums[i];
         nums[i] = nums[j];
         nums[j] = middle;
+    }
+
+    /**
+     * 通用解法 isEvent可以修改为任何条件
+     * 利用快排思想
+     * @param nums
+     * @return
+     */
+    public int[] exchange_common(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return nums;
+        }
+        int left = 0, right = nums.length - 1;
+        while (left < right) {
+            while (left < right && !isEvent(nums[right])) {
+                right--;
+            }
+            while (left < right && isEvent(nums[left])) {
+                left++;
+            }
+            if (left < right) {
+                swap(nums, left, right);
+            }
+        }
+        return nums;
+    }
+
+    /**
+     * 可以修改为负数在前正数在后 或者 能被三整除的在前面不能的在后面
+     * @param n
+     * @return
+     */
+    private boolean isEvent(int n) {
+        return n % 2 != 0;
+    }
+
+    /**
+     * 自己的方法
+     * @param nums
+     * @return
+     */
+    public int[] exchange_own(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return nums;
+        }
+        int index = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] % 2 != 0) {
+                swap(nums, i, index++);
+            }
+        }
         return nums;
     }
 }
