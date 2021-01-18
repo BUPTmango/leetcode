@@ -46,25 +46,21 @@ public class DetectCycle {
      * @param head
      * @return
      */
-    public ListNode detectCycle_pointer(ListNode head) {
+    public ListNode detectCycle(ListNode head) {
         ListNode fast = head, slow = head;
-        while (true) {
-            // fast或者fast.next为null 说明没有环 直接返回null
-            if (fast == null || fast.next == null) {
-                return null;
-            }
+        while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
             if (fast == slow) {
-                break;
+                // 存在环
+                slow = head;
+                while (slow != fast) {
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return slow;
             }
         }
-        // 将slow指向head 同时走
-        slow = head;
-        while (slow != fast) {
-            slow = slow.next;
-            fast = fast.next;
-        }
-        return slow;
+        return null;
     }
 }
