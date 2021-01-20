@@ -60,6 +60,7 @@ public class PathSum {
         // 注意这里要先添加root.val之后进行判断 都是null就不进行遍历了 否则会输出结果两遍
         if (tar == 0 && root.left == null && root.right == null) {
             res.add(new ArrayList<>(path));
+            // 注意！！！  这里不能加return 加了就走不了后面的回溯了
         }
         // 遍历左子树
         recur(root.left, tar);
