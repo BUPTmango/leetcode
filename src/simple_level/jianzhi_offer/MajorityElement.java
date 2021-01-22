@@ -45,25 +45,18 @@ public class MajorityElement {
      * @return
      */
     public int majorityElement_vote(int[] nums) {
-        int x = 0, votes = 0;
-        for (int num : nums) {
-            // 动态选举 先默认第一个为众数 如果votes减为0 就选举下一个众数
-            if (votes == 0) {
-                x = num;
-            }
-            votes += num == x ? 1 : -1;
-        }
-
-        // 确实大于 1/2 才返回   因为有可能输入数据中不存在众数
-        votes = 0;
-        for (int num : nums) {
-            if (num == x) {
-                votes++;
+        int result = nums[0];
+        int times = 1;
+        for (int i = 1; i < nums.length; i++) {
+            if (times == 0) {
+                result = nums[i];
+                times = 1;
+            } else if (nums[i] == result) {
+                times++;
+            } else {
+                times--;
             }
         }
-        if (votes > nums.length / 2) {
-            return x;
-        }
-        return 0;
+        return result;
     }
 }

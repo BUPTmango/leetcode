@@ -55,4 +55,53 @@ public class GetLeastNumbers {
         }
         return ref;
     }
+
+    /**
+     * 基于快排思想
+     * @param arr
+     * @param k
+     * @return
+     */
+    public int[] getLeastNumbers_quick_sort(int[] arr, int k) {
+        int low = 0;
+        int high = arr.length - 1;
+        while (low < high) {
+            int i = partition(arr, low, high);
+            if (i == k) {
+                break;
+            } else if (i > k) {
+                high = i - 1;
+            } else {
+                low = i + 1;
+            }
+        }
+        int[] res = new int[k];
+        for (int j = 0; j < k; j++) {
+            res[j] = arr[j];
+        }
+        return res;
+    }
+
+    private int partition(int[] nums, int left, int right) {
+        // 随机选一个作为pivot
+        if (right > left) {
+            int random = (int) (Math.random() * (right - left) + left + 1);
+            int tmp = nums[left];
+            nums[left] = nums[random];
+            nums[random] = tmp;
+        }
+        int pivot = nums[left];
+        while (left < right) {
+            while (left < right && nums[right] >= pivot) {
+                right--;
+            }
+            nums[left] = nums[right];
+            while (left < right && nums[left] <= pivot) {
+                left++;
+            }
+            nums[right] = nums[left];
+        }
+        nums[left] = pivot;
+        return left;
+    }
 }
