@@ -1,26 +1,28 @@
 package middle_level.jianzhi_offer;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 剑指 Offer 48. 最长不含重复字符的子字符串
  * 请从字符串中找出一个最长的不包含重复字符的子字符串，计算该最长子字符串的长度。
- *
+ * <p>
  * ?
- *
+ * <p>
  * 示例?1:
- *
+ * <p>
  * 输入: "abcabcbb"
  * 输出: 3
  * 解释: 因为无重复字符的最长子串是 "abc"，所以其长度为 3。
  * 示例 2:
- *
+ * <p>
  * 输入: "bbbbb"
  * 输出: 1
  * 解释: 因为无重复字符的最长子串是 "b"，所以其长度为 1。
  * 示例 3:
- *
+ * <p>
  * 输入: "pwwkew"
  * 输出: 3
  * 解释: 因为无重复字符的最长子串是?"wke"，所以其长度为 3。
@@ -32,25 +34,22 @@ import java.util.Map;
  */
 public class LengthOfLongestSubstring {
     /**
-     * 哈希表 dic 统计： 指针 j 遍历字符 s ，哈希表统计字符 s[j] 最后一次出现的索引 。
-     * 更新左指针 i ： 根据上轮左指针 i 和 dic[s[j]] ，每轮更新左边界 i ，保证区间 [i + 1, j] 内无重复字符且最大。
-     * i = max(dic[s[j]], i)
-     *
-     * 更新结果 res ： 取上轮 res 和本轮双指针区间 [i + 1,j] 的宽度（即 j - i ）中的最大值。
-     * res = max(res, j - i)
+     * 滑动窗口，双指针
      *
      * @param s
      * @return
      */
     public int lengthOfLongestSubstring(String s) {
-        Map<Character, Integer> dic = new HashMap<>();
-        int i = -1, res = 0;
-        for(int j = 0; j < s.length(); j++) {
-            if(dic.containsKey(s.charAt(j))) {
-                i = Math.max(i, dic.get(s.charAt(j))); // 更新左指针 i
+        Set<Character> set = new HashSet<>();
+        int left = 0, right = 0, res = 0;
+        while (right < s.length()) {
+            char c = s.charAt(right++);
+            // 存在重复的字符，则移动左指针，直到滑动窗口中不含有该字符
+            while (set.contains(c)) {
+                set.remove(s.charAt(left++));
             }
-            dic.put(s.charAt(j), j); // 哈希表记录
-            res = Math.max(res, j - i); // 更新结果
+            set.add(c);
+            res = Math.max(res, right - left);
         }
         return res;
     }
