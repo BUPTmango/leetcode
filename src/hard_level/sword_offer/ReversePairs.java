@@ -97,6 +97,7 @@ public class ReversePairs {
             } else {
                 nums[k] = temp[j];
                 j++;
+                // 后面的数组的数字小于前面数组的数字 逆序对要加上前面数组剩余数字的个数
                 count += (mid - i + 1);
             }
         }
