@@ -47,6 +47,8 @@ public class MissingNumber {
 
     /**
      * 还可以用二分查找
+     * 相当于寻找 在排序数组中第一个值和下标不相等的元素
+     *
      * @param nums
      * @return
      */

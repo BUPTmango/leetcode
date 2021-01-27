@@ -44,59 +44,28 @@ import java.util.Stack;
  * @date 2020/3/1 10:11 上午
  */
 public class KthLargest {
-    /**
-     * 二叉搜索树的中序遍历是按照从小到大或者从大到小的顺序排列的（取决于左子树在前还是右子树在前）
-     * 这里就用到排序
-     * 之后用到stack的pop到第k个
-     * @param root
-     * @param k
-     * @return
-     */
-
-
-    int count;
-    int result = -1;
+    private int count = 0;
+    private int res = 0;
 
     public int kthLargest(TreeNode root, int k) {
-        count = k;
-        kthLargest(root);
-        return result;
+        inorder(root, k);
+        return res;
     }
-
-    private void kthLargest(TreeNode root) {
-        if (Objects.nonNull(root)) {
-            kthLargest(root.right);
-            if (count == 1) {
-                result = root.val;
-                count--;
-                return;
-            }
-            count--;
-            kthLargest(root.left);
-        }
-    }
-
-
-    // 中序遍历为排序好的数组
-    List<Integer> list = new ArrayList<>();
 
     /**
-     * 中序遍历之后为从小到大的有序数组，之后取size - k索引位置的元素
+     * 注意！！ 改造的中序遍历 左右子树的遍历是反过来的 这样可以得到降序的序列
      * @param root
      * @param k
-     * @return
      */
-    public int kthLargest_inorder(TreeNode root, int k) {
-        inorder(root);
-        return list.get(list.size() - k);
-    }
-
-    private void inorder(TreeNode root) {
+    private void inorder(TreeNode root, int k) {
         if (root == null) {
             return;
         }
-        inorder(root.left);
-        list.add(root.val);
-        inorder(root.right);
+        inorder(root.right, k);
+        count++;
+        if (count == k) {
+            res = root.val;
+        }
+        inorder(root.left, k);
     }
 }
