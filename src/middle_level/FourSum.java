@@ -95,6 +95,63 @@ public class FourSum {
         return res;
     }
 
+    /**
+     * 通用的方法
+     * @param nums
+     * @param n n数之和
+     * @param start 从哪里开始
+     * @param target 目标值
+     * @return
+     */
+    private List<List<Integer>> nSumTarget(int[] nums, int n, int start, int target) {
+        int sz = nums.length;
+        List<List<Integer>> res = new ArrayList<>();
+        if (n < 2 || sz < n) {
+            return res;
+        }
+        // 2Sum是base case
+        if (n == 2) {
+            int left = start, right = sz - 1;
+            while (left < right) {
+                int sum = nums[left] + nums[right];
+                if (sum == target) {
+                    List<Integer> list = new ArrayList<>();
+                    list.add(nums[left]);
+                    list.add(nums[right]);
+                    res.add(list);
+                    // 去重
+                    while (left < right && nums[left + 1] == nums[left]) {
+                        left++;
+                    }
+                    // 去重
+                    while (left < right && nums[right - 1] == nums[right]) {
+                        right--;
+                    }
+                    left++;
+                    right--;
+                } else if (sum > target) {
+                    right--;
+                } else {
+                    left++;
+                }
+            }
+        } else {
+            // n > 2 时，递归计算 (n - 1)Sum 的结果
+            for (int i = start; i < sz; i++) {
+                List<List<Integer>> sub = nSumTarget(nums, n - 1, i + 1, target - nums[i]);
+                for (List<Integer> arr : sub) {
+                    // (n - 1)Sum 加上nums[i]就是nSum
+                    arr.add(nums[i]);
+                    res.add(arr);
+                }
+                while (i < sz - 1 && nums[i] == nums[i + 1]) {
+                    i++;
+                }
+            }
+        }
+        return res;
+    }
+
     public static void main(String[] args) {
         System.out.println(fourSum(new int[]{0, 0, 0, 0}, 0));
     }
