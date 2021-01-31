@@ -57,6 +57,7 @@ public class GetNSum {
             for (int s = i; s <= 6 * i; s++) {
                 // 求dp[i][s]
                 for (int d = 1; d <= 6; d++) {
+                    // s - d 是凑出来的最小的情况
                     if (s - d < i - 1) {
                         break;// 为0了
                     }

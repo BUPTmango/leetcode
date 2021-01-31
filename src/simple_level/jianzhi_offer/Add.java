@@ -37,5 +37,19 @@ public class Add {
         int carry = (a & b) << 1;
         return add(sum, carry);
     }
+
+    public int add_iterate(int a, int b) {
+        if (b == 0) {
+            return a;
+        }
+        int sum = 0, carry = 0;
+        while (b != 0) {
+            sum = a ^ b;
+            carry = (a & b) << 1;
+            a = sum;
+            b = carry;
+        }
+        return sum;
+    }
 }
 
