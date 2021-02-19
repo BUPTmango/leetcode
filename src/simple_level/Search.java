@@ -41,11 +41,45 @@ public class Search {
                 right = mid - 1;
             }
         }
+        System.out.println("left: " + left + "     right: " + right);
         return -1;
+    }
+
+    public int searchLeft(int[] nums, int target) {
+        int left = 0, right = nums.length;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        System.out.println("left: " + left + "     right: " + right);
+        return left;
+    }
+
+    public int searchRight(int[] nums, int target) {
+        int left = 0, right = nums.length;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] > target) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        System.out.println("left: " + left + "     right: " + right);
+        return right - 1;
     }
 
     public static void main(String[] args) {
         Search search = new Search();
-        System.out.println(search.search(new int[]{1,2,2,2,5}, 9));
+        System.out.println(search.search(new int[]{1,2,2,2,5}, 0));
+        System.out.println();
+        System.out.println(search.searchLeft(new int[]{1,2,2,2,5}, 0));
+        System.out.println();
+        System.out.println(search.searchRight(new int[]{1,2,2,2,5}, 0));
+        System.out.println();
     }
 }
