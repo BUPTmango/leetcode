@@ -85,5 +85,24 @@ public class LambdaTest {
         //计算总体重
         int weight_sum = students.stream().mapToInt(Student::getWeight).sum();
         System.out.println("total weight : " + weight_sum);
+        // 测试flatmap
+        List<Student> studentGroup1 = new ArrayList<>();
+        studentGroup1.add(new Student("uf081271", "wgl", "BUPT", 50));
+        studentGroup1.add(new Student("uf081272", "wgl", "BUPT", 50));
+        studentGroup1.add(new Student("uf081273", "wgl", "BUPT", 50));
+        List<Student> studentGroup2 = new ArrayList<>();
+        studentGroup2.add(new Student("uf081274", "wgl", "BUPT", 50));
+        studentGroup2.add(new Student("uf081275", "wgl", "BUPT", 50));
+        studentGroup2.add(new Student("uf081276", "wgl", "BUPT", 50));
+        List<Student> studentGroup3 = new ArrayList<>();
+        studentGroup3.add(new Student("uf081277", "wgl", "BUPT", 50));
+        studentGroup3.add(new Student("uf081278", "wgl", "BUPT", 50));
+        studentGroup3.add(new Student("uf081279", "wgl", "BUPT", 50));
+        List<List<Student>> groups = new ArrayList<>();
+        groups.add(studentGroup1);
+        groups.add(studentGroup2);
+        groups.add(studentGroup3);
+        List<Student> collect = groups.stream().flatMap(group -> group.stream()).collect(Collectors.toList());
+        collect.forEach(c -> System.out.println(c));
     }
 }
