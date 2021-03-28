@@ -1,8 +1,6 @@
 package middle_level.jianzhi_offer;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 /**
@@ -41,15 +39,18 @@ public class LengthOfLongestSubstring {
      */
     public int lengthOfLongestSubstring(String s) {
         Set<Character> set = new HashSet<>();
-        int left = 0, right = 0, res = 0;
-        while (right < s.length()) {
-            char c = s.charAt(right++);
-            // 存在重复的字符，则移动左指针，直到滑动窗口中不含有该字符
-            while (set.contains(c)) {
-                set.remove(s.charAt(left++));
+        int n = s.length();
+        int l = 0, r = 0;
+        int res = 0;
+        // 滑动窗口
+        while (l < n) {
+            while (r < n && !set.contains(s.charAt(r))) {
+                set.add(s.charAt(r));
+                r++;
             }
-            set.add(c);
-            res = Math.max(res, right - left);
+            // 更新
+            res = Math.max(res, r - l);
+            set.remove(s.charAt(l++));
         }
         return res;
     }
