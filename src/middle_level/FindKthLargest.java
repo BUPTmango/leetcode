@@ -45,18 +45,17 @@ public class FindKthLargest {
      * @return
      */
     public int findKthLargest_quick_select(int[] nums, int k) {
-        int low = 0;
-        int high = nums.length - 1;
+        // 利用快速排序思想
+        int left = 0, right = nums.length - 1;
         k = nums.length - k;
-        while (low < high) {
-            int i = partition(nums, low, high);
-            if (i == k) {
-                return nums[i];
-            }
-            if (i > k) {
-                high = i - 1;
+        while (left < right) {
+            int index = partition(nums, left, right);
+            if (index == k) {
+                break;
+            } else if (index > k) {
+                right = index - 1;
             } else {
-                low = i + 1;
+                left = index + 1;
             }
         }
         return nums[k];
