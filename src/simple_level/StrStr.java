@@ -25,7 +25,8 @@ public class StrStr {
         if (needle.equals("")) {
             return 0;
         }
-        for (int i = 0; i < haystack.length(); i++) {
+        // 进行剪枝 - needle.length() 优化
+        for (int i = 0; i <= haystack.length() - needle.length(); i++) {
             // index为在needle中的位置
             int index = 0;
             // j为在haystack中的位置
