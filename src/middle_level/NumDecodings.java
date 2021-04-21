@@ -48,33 +48,17 @@ package middle_level;
  */
 public class NumDecodings {
     public int numDecodings(String s) {
-        if (s == null || s.length() == 0) {
-            return 0;
-        }
-        int len = s.length();
-        int[] dp = new int[len + 1];
-        // 初始化最后一个为1种方式
-        dp[len] = 1;
-        // 初始化倒数第二个元素 作为后面遍历的初始值
-        if (s.charAt(len - 1) == '0') {
-            dp[len - 1] = 0;
-        } else {
-            dp[len - 1] = 1;
-        }
-        // 开始遍历
-        for (int i = len - 2; i >= 0; i--) {
-            // 如果开始的数为0，结果为0
-            if (s.charAt(i) == '0') {
-                dp[i] = 0;
-                continue;
+        int n = s.length();
+        int[] f = new int[n + 1];
+        f[0] = 1;
+        for (int i = 1; i <= n; ++i) {
+            if (s.charAt(i - 1) != '0') {
+                f[i] += f[i - 1];
             }
-            // 两位数在26范围内 能拆成两个相加
-            if ((s.charAt(i) - '0') * 10 + (s.charAt(i + 1) - '0') <= 26) {
-                dp[i] = dp[i + 1] + dp[i + 2];
-            } else {
-                dp[i] = dp[i + 1];
+            if (i > 1 && s.charAt(i - 2) != '0' && ((s.charAt(i - 2) - '0') * 10 + (s.charAt(i - 1) - '0') <= 26)) {
+                f[i] += f[i - 2];
             }
         }
-        return dp[0];
+        return f[n];
     }
 }
