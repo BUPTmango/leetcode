@@ -43,24 +43,22 @@ import data_structure.TreeNode;
  * @date 2020/10/8 9:44 上午
  */
 public class IncreasingBST {
-    TreeNode dummy = new TreeNode(0);
-    TreeNode pointer = dummy;
+    private TreeNode pre;
+
     public TreeNode increasingBST(TreeNode root) {
         inOrder(root);
-        return dummy.right;
+        return pre;
     }
 
     private void inOrder(TreeNode node) {
         if (node == null) {
             return;
         }
-        inOrder(node.left);
-
-        // 遍历完左子树之后一定要将左子树设置为null 否则会出现环
-        node.left = null;
-        pointer.right = node;
-        pointer = pointer.right;
-
         inOrder(node.right);
+        node.right = pre;
+        pre = node;
+        inOrder(node.left);
+        // 记得left指向null
+        node.left = null;
     }
 }
