@@ -58,6 +58,7 @@ public class ShipWithinDays {
             min = Math.min(min, weight);
             max += weight;
         }
+        // 找到能装下的最左边的容量
         int left = min, right = max + 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
@@ -82,5 +83,26 @@ public class ShipWithinDays {
             }
         }
         return false;
+    }
+
+
+    public static int findDays(int[] weights, int capacity) {
+        int sum = 0, days = 1;
+        for (int weight : weights) {
+            if (sum + weight > capacity) {
+                days++;
+                sum = weight;
+            } else if (sum + weight == capacity) {
+                days++;
+                sum = 0;
+            } else {
+                sum += weight;
+            }
+        }
+        return days;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(findDays(new int[]{1,2,3,1,1}, 3));
     }
 }
