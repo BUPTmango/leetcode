@@ -18,7 +18,6 @@ import java.util.List;
  *
  * 示例 1：
  *
- *
  * 输入：root1 = [3,5,1,6,2,9,8,null,null,7,4], root2 = [3,5,1,6,7,4,2,null,null,null,null,null,null,9,8]
  * 输出：true
  * 示例 2：
@@ -34,7 +33,6 @@ import java.util.List;
  * 输入：root1 = [1,2], root2 = [2,2]
  * 输出：true
  * 示例 5：
- *
  *
  * 输入：root1 = [1,2,3], root2 = [1,3,2]
  * 输出：false
