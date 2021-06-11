@@ -41,6 +41,7 @@ public class NumSquares {
         for (int i = 1; i <= n; i++) {
             // 先更新为最坏的情况 最坏的情况就是每次+1
             dp[i] = i;
+            // i - j * j >= 0 注意！！！！！ 这里不能变成sqrt 非常慢！！
             for (int j = 1; i - j * j >= 0; j++) {
                 // 动态转移方程
                 dp[i] = Math.min(dp[i], dp[i - j * j] + 1);
