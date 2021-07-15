@@ -37,7 +37,7 @@ public class ThreeSum {
             if (nums[i] > 0) {
                 break;
             }
-            // 去掉重复情况
+            // 去掉重复情况   注意！！！ 这里用if就可以了 不用while 因为continue之后又来了 相当于就是while
             if (i > 0 && nums[i] == nums[i - 1]) {
                 continue;
             }
@@ -49,7 +49,7 @@ public class ThreeSum {
                     list.add(nums[left]);
                     list.add(nums[right]);
                     res.add(list);
-                    // 去重
+                    // 去重   注意！！！！ 这里条件是left < right 不是和数组长度去比较
                     while (left < right && nums[left + 1] == nums[left]) {
                         left++;
                     }
