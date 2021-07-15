@@ -49,6 +49,7 @@ public class ThreeSum {
                     list.add(nums[left]);
                     list.add(nums[right]);
                     res.add(list);
+                    // 注意！！！ 是在相等的时候去重
                     // 去重   注意！！！！ 这里条件是left < right 不是和数组长度去比较
                     while (left < right && nums[left + 1] == nums[left]) {
                         left++;
