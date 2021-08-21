@@ -31,8 +31,10 @@ public class FindMin {
         int right = nums.length - 1;
         while (left < right) {
             int mid = left + (right - left) / 2;
+            // 旋转点（最小值）在mid和right中
             if (nums[mid] > nums[right]) {
                 left = mid + 1;
+            // 旋转点不在mid和right中，所以更新为mid
             } else {
                 right = mid;
             }
