@@ -40,7 +40,9 @@ public class MaxProduct {
         for (int i = 1; i < n; i++) {
             //更新 dpMin 的时候需要 dpMax 之前的信息，所以先保存起来
             int preMax = dpMax;
+            // nums[i]<0的一种情况 + >0的两种情况（考虑dpMax的正负）
             dpMax = Math.max(dpMin * nums[i], Math.max(dpMax * nums[i], nums[i]));
+            // nums[i]>0的一种情况 + <0的两种情况（考虑dpMax的正负）
             dpMin = Math.min(dpMin * nums[i], Math.min(preMax * nums[i], nums[i]));
             max = Math.max(max, dpMax);
         }
