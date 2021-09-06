@@ -68,4 +68,48 @@ public class AddTwoNumbers {
         }
         return head;
     }
+
+    public ListNode addTwoNumbers_linked_list(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+        l1 = reverseList(l1);
+        l2 = reverseList(l2);
+        ListNode p1 = l1, p2 = l2;
+        ListNode dummy = new ListNode(0);
+        ListNode pointer = dummy;
+        int carry = 0, sum = 0;
+        while (p1 != null || p2 != null) {
+            int val1 = p1 == null ? 0 : p1.val;
+            int val2 = p2 == null ? 0 : p2.val;
+            if (p1 != null) {
+                p1 = p1.next;
+            }
+            if (p2 != null) {
+                p2 = p2.next;
+            }
+            sum = val1 + val2 + carry;
+            pointer.next = new ListNode(sum % 10);
+            pointer = pointer.next;
+            carry = sum / 10;
+        }
+        if (carry != 0) {
+            pointer.next = new ListNode(carry);
+        }
+        return reverseList(dummy.next);
+    }
+
+    private ListNode reverseList(ListNode head) {
+        ListNode curr = head, prev = null;
+        while (curr != null) {
+            ListNode next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
 }
