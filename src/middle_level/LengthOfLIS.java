@@ -1,5 +1,7 @@
 package middle_level;
 
+import hard_level.Solution;
+
 import java.util.Arrays;
 
 /**
@@ -49,5 +51,41 @@ public class LengthOfLIS {
         }
 
         return res;
+    }
+
+    /**
+     * 贪心 + 二分查找
+     *
+     * @param nums
+     * @return
+     */
+    public int lengthOfLIS_better(int[] nums) {
+        int len = 1, n = nums.length;
+        if (n == 0) {
+            return 0;
+        }
+        int[] d = new int[n + 1];
+        d[len] = nums[0];
+        for (int i = 1; i < n; ++i) {
+            // 如果 nums[i] > d[len] ，则直接加入到 d 数组末尾，并更新len=len+1；
+            if (nums[i] > d[len]) {
+                d[++len] = nums[i];
+            // 否则，在 d 数组中二分查找，找到第一个比 nums[i] 小的数 d[k] ，并更新 d[k+1]=nums[i]。
+            } else {
+                // 如果找不到说明所有的数都比 nums[i] 大，此时要更新 d[1]，所以这里将 pos 设为 0
+                int l = 1, r = len, pos = 0;
+                while (l <= r) {
+                    int mid = (l + r) >> 1;
+                    if (d[mid] < nums[i]) {
+                        pos = mid;
+                        l = mid + 1;
+                    } else {
+                        r = mid - 1;
+                    }
+                }
+                d[pos + 1] = nums[i];
+            }
+        }
+        return len;
     }
 }
