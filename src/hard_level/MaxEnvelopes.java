@@ -26,7 +26,7 @@ import java.util.Arrays;
 public class MaxEnvelopes {
     public int maxEnvelopes(int[][] envelopes) {
         int n = envelopes.length;
-        // 按照w升序排序 如果w相同 按照h降序排序
+        // 按照w升序排序 如果w相同 按照h降序(如果不降序，就会把w相等的情况也算进去，但是不行，因为是要严格大于，不能是等于)排序
         Arrays.sort(envelopes, (o1, o2) -> o1[0] == o2[0] ? o2[1] - o1[1] : o1[0] - o2[0]);
         // 获取高度数组
         int[] height = new int[n];

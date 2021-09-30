@@ -25,7 +25,7 @@ package simple_level;
 public class RemoveDuplicates {
     public int removeDuplicates(int[] nums) {
         int length = nums.length;
-        if (length == 0 || nums == null) {
+        if (length == 0) {
             return 0;
         }
         if (length == 1) {
